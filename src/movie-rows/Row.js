@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from "react";
 import instance from "../axios";
+import { Link
+ } from "react-router-dom";
 // import axios from "axios";
+import "./Row.css";
 
 function Row({title, url}){
 
@@ -14,31 +17,53 @@ function Row({title, url}){
 
     //[url] indicates that useEffect() is dependent on this variable. Anytime the value of url changes, useEffect has to be updated. 
 
+    // useEffect(() => {
+    //     // if [], run once when the row loads and don't run again
+    //     async function fetchData() {
+    //         console.log("url = ",url);
+    //         const request = await instance.get(fetchURL);
+    //         console.log("request = ", request.data.results);
+    //         setMovies(request.data.results);
+    //         return request;
+    //     }
+    //     fetchData();
+    // }, [url]);
+
     useEffect(() => {
-        // if [], run once when the row loads and don't run again
-        async function fetchData() {
-            console.log("url = ",url);
-            const request = await instance.get(url);
-            console.log("request = ", request.data.results);
-            setMovies(request.data.results);
-            return request;
+        fetchMovies();
+      }, []);
+    
+    const fetchMovies = async () => {
+        //the url will be replaced by the favourite movies from the database for the particular profile.
+        const API_KEY = "df7510bd7dd3fc3cf823106e7e473ecf";
+        const url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=35`;
+
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+            setMovies(data.results);
+        } catch (error) {
+            console.log('Error:', error);
         }
-        fetchData();
-    }, [url]);
+    };
 
 
-    return(
-        <div>
-            {/* Title */}
-            Rows
-            <h2>{title}</h2>
 
-            {/* container -> posters inside containers */}
-
-
-            
+    return (
+        <div className=" row">
+          <h1>Favourite Movies</h1>
+          <div className="row__posters">
+            {movies.map((movie) => (
+                <img width={200}
+                key={movie.id}
+                  className="row__poster"
+                  src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                  alt={movie.title}
+                />
+            ))}
+          </div>
         </div>
-    )
+      );
 };
 
 export default Row;

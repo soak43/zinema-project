@@ -5,11 +5,11 @@ import axios from "axios";
 
 const instance = axios.create({
     baseURL : "https://api.themoviedb/org/3",
-    withCredentials: false,
-    headers: {
-        'Access-Control-Allow-Origin' : '*',
-        'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',   
-    },
+    // withCredentials: false,
+    // headers: {
+    //     'Access-Control-Allow-Origin' : '*',
+    //     'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',   
+    // },
 });
 
 export default instance;
