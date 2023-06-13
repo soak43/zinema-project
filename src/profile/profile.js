@@ -3,12 +3,15 @@ import NavigationSidebar from "../navigation-bar/navigationbar";
 import PrivateDetails from "./private-details";
 import "./profile.css";
 import users from "../users/users.json";
-import Row from "../movie-rows/Row";
+import MovieRow from "../Rows/movie-rows";
+import ProfileRows from "../Rows/profile-rows";
 import requests from "../requests";
 
 function Profile(){
 
     let loggedInUser = users.find((u) => u._id === 1);
+    const API_KEY = "df7510bd7dd3fc3cf823106e7e473ecf";
+    const url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=35`;
 
     return(
         <div>
@@ -38,7 +41,8 @@ function Profile(){
             <div className="row mt-4">
                 <div className="col-2"></div>
                 <div className="col-10">
-                    <Row title="Favourites" url={requests.fetchNetflixOriginals}/>
+                    <MovieRow title="Favourites" url={url}/>
+                    <ProfileRows />
                 </div>
             </div>
         </div>
