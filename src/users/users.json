@@ -6,7 +6,7 @@
         "email" : "jdoe@gmail.com",
         "firstname" : "Jane",
         "lastname" : "Doe",
-        "profilepicture" : "default-profile-picture.png"
+        "image" : "profilepic2.jpeg"
     }
 
 ]

@@ -20,11 +20,11 @@ function Profile(){
                 <div className="col-10">
                     <div className="row">
                         <div className="col-3">
-                            <img width={200} src={`../images/${loggedInUser.profilepicture}`} className="rounded-circle img-fluid"></img>
+                            <img width={200} src={`../images/${loggedInUser.image}`} className="rounded-circle img-fluid"></img>
                         </div>
                         <div className="col-7 pt-5">
-                                <h2> Profile </h2>
-                                <p className = "text-left">{loggedInUser.firstname} {loggedInUser.lastname}</p>
+                                <h1> Profile </h1>
+                                <h2 className = "text-left">{loggedInUser.firstname} {loggedInUser.lastname}</h2>
                         </div>
                     </div>
                 </div>

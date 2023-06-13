@@ -1,12 +1,12 @@
 // import logo from './logo.svg';
-// import './App.css';
+import './App.css';
 import Profile from "./profile/profile";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
 
 function App() {
   return (
-    <div className="container">
+    <div className="container bg-dark text-light">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Navigate to="/profile"/>}/>

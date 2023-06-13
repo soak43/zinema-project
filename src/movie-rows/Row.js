@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from "react";
 import instance from "../axios";
-import { Link
- } from "react-router-dom";
+import { Link } from "react-router-dom";
+import following from "../following/following.json";
+import followers from "../following/followers.json";
 // import axios from "axios";
 import "./Row.css";
+// import profilepic1 from "../../public/images/"
 
 function Row({title, url}){
 
@@ -16,18 +18,6 @@ function Row({title, url}){
     //runs every time 'movies' changes
 
     //[url] indicates that useEffect() is dependent on this variable. Anytime the value of url changes, useEffect has to be updated. 
-
-    // useEffect(() => {
-    //     // if [], run once when the row loads and don't run again
-    //     async function fetchData() {
-    //         console.log("url = ",url);
-    //         const request = await instance.get(fetchURL);
-    //         console.log("request = ", request.data.results);
-    //         setMovies(request.data.results);
-    //         return request;
-    //     }
-    //     fetchData();
-    // }, [url]);
 
     useEffect(() => {
         fetchMovies();
@@ -42,6 +32,7 @@ function Row({title, url}){
             const response = await fetch(url);
             const data = await response.json();
             setMovies(data.results);
+            console.log(data.results);
         } catch (error) {
             console.log('Error:', error);
         }
@@ -50,11 +41,13 @@ function Row({title, url}){
 
 
     return (
+        <div>
+            {/* Favourite movies row*/}
         <div className=" row">
           <h1>Favourite Movies</h1>
           <div className="row__posters">
             {movies.map((movie) => (
-                <img width={200}
+                <img 
                 key={movie.id}
                   className="row__poster"
                   src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
@@ -62,6 +55,38 @@ function Row({title, url}){
                 />
             ))}
           </div>
+        </div>
+
+        {/* Following row*/}
+        <div className="row">
+            <h1>Following</h1>
+            <div className="row__posters">
+                {following.map((profile) => (
+                    <Link to={`/profile/${profile._id}`}><img width={10}
+                    key={profile._id}
+                    className="row__profile rounded-circle"
+                    src={`/images/${profile.image}`}
+                    alt={profile.name}
+                    /></Link>
+                ))}
+            </div>
+        </div>
+
+         {/* Followers row*/}
+         <div className="row">
+            <h1>Followers</h1>
+            <div className="row__posters">
+                {followers.map((profile) => (
+                    <Link to={`/profile/${profile._id}`}><img width={10}
+                    key={profile._id}
+                    className="row__profile rounded-circle"
+                    src={`/images/${profile.image}`}
+                    alt={profile.name}
+                    /></Link>
+                ))}
+            </div>
+        </div>
+
         </div>
       );
 };

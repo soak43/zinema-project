@@ -22,3 +22,16 @@
     transform: scale(1.1);
     opacity: 1;
 }
+
+.row__profile{
+    object-fit: contain;
+    width : 75%;
+    max-height: 150px;
+    margin-right: 10px;
+    transition: transform 450ms;
+}
+
+.row__profile:hover{
+    transform: scale(1.1);
+    opacity: 1;
+}
