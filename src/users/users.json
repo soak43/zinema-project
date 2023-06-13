@@ -1,0 +1,12 @@
+[
+    {
+        "_id" : 1,
+        "username" : "janedoe12",
+        "password" : "janeDoe9900",
+        "email" : "jdoe@gmail.com",
+        "firstname" : "Jane",
+        "lastname" : "Doe",
+        "profilepicture" : "default-profile-picture.png"
+    }
+
+]
