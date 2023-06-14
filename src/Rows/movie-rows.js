@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
-import "./Row.css";
+import "./row.css"
+
 
 
 function MovieRow({title, url}){
@@ -43,7 +44,7 @@ function MovieRow({title, url}){
                 <h1>{title}</h1>
                 <div className="row__posters">
                     {movies.map((movie) => (
-                        <Link to="/profile"><img 
+                        <Link to="/profile"><img    //link needs to be changed to the profile details link
                         key={movie.id}
                         className="row__poster"
                         src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}

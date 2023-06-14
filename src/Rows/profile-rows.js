@@ -1,7 +1,7 @@
 import following from "../following/following.json";
 import followers from "../following/followers.json";
 import { Link } from "react-router-dom";
-import "./Row.css";
+import "./row.css";
 
 function ProfileRows(){
     return (
