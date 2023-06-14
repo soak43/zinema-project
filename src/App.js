@@ -7,7 +7,7 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
 function App() {
   return (
-    <div className="container bg-dark text-light">
+    <div className="bg-dark text-light">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Navigate to="/profile"/>}/>
