@@ -49,7 +49,9 @@ function MovieRow({title, url}){
                         className="row__poster"
                         src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
                         alt={movie.title}
-                        /></Link>
+                        />
+                        <p className="movie__title">{movie.title}</p>
+                        </Link>
                     ))}
                 </div>
             </div>

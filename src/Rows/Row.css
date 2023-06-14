@@ -35,3 +35,20 @@
     transform: scale(1.1);
     opacity: 1;
 }
+
+.profile__name{
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    padding-right:30%;
+    padding-top: 7%;
+}
+
+.movie__title{
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    padding-top: 10%;
+    font-size: x-large;
+}
+

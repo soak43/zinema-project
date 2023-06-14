@@ -2,6 +2,7 @@ import React from "react";
 import NavigationSidebar from "../navigation-bar/navigationbar";
 import MovieRow from "../Rows/movie-rows";
 import ProfileRows from "../Rows/profile-rows";
+import "./homepage.css";
 
 function Homepage(){
 
@@ -18,7 +19,7 @@ function Homepage(){
                     <NavigationSidebar />
                 </div>
                 <div className="col-8">
-                    <input className="form-control mb-2" type="text" placeholder="Search Movies or TV Shows" />
+                    <input className="form-control mb-2 bg" type="text" placeholder="Search Movies or TV Shows" />
                     <div className="row">
                         <MovieRow title="Favourties" url={url_comedy} />
                     </div>
@@ -34,7 +35,7 @@ function Homepage(){
                         <input className="form-control" type="text" placeholder="Search Profiles"/>
                     </div>
                     <div className="row">
-                        Profiles
+                        Following
                     </div>
                 </div>
             </div>

@@ -6,7 +6,7 @@ const NavigationSidebar = () => {
     const [ignore, active] = pathname.split("/");
     return (
     <div className="list-group">
-        <Link to={"/home "} className={`list-group-item bg-dark text-light
+        <Link to={"/home "} className={`list-group-item bg-dark text-light 
                 ${active === "home" ? "active" : ""} align-content-center`}>Home</Link>
         <Link to={"/search "} className={`list-group-item bg-dark text-light
                 ${active === "search" ? "active" : ""}`}>Search</Link>

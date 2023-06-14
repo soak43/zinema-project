@@ -16,7 +16,9 @@ function ProfileRows(){
                         className="row__profile rounded-circle"
                         src={`/images/${profile.image}`}
                         alt={profile.name}
-                        /></Link>
+                        />
+                        <h4 className="profile__name">{profile.name}</h4>
+                        </Link>
                     ))}
                 </div>
             </div>
@@ -31,7 +33,9 @@ function ProfileRows(){
                         className="row__profile rounded-circle"
                         src={`/images/${profile.image}`}
                         alt={profile.name}
-                        /></Link>
+                        />
+                        <h4 className="profile__name">{profile.name}</h4>
+                        </Link>
                     ))}
                 </div>
             </div>
