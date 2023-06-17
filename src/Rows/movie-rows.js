@@ -44,7 +44,8 @@ function MovieRow({title, url}){
                 <h1>{title}</h1>
                 <div className="row__posters">
                     {movies.map((movie) => (
-                        <Link to="/profile"><img    //link needs to be changed to the profile details link
+                        <Link /*style={{pointerEvents:'none'}} */ to="/home"><img  //links to movie content
+                        /*blur the image based on the subscription type*/
                         key={movie.id}
                         className="row__poster"
                         src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}

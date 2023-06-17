@@ -1,12 +1,55 @@
 [
     {
-        "_id" : 1,
+        "_id" : "1",
         "username" : "janedoe12",
         "password" : "janeDoe9900",
         "email" : "jdoe@gmail.com",
         "firstname" : "Jane",
         "lastname" : "Doe",
-        "image" : "profilepic2.jpeg"
+        "image" : "profilepic2.jpeg",
+        "type": "regular",
+        "following": ["1", "4", "3"],
+        "followers":["2","3"],
+        "favorites":[]
+    },
+    {
+        "_id" : "2",
+        "username" : "bob12",
+        "password" : "123",
+        "email" : "bob@gmail.com",
+        "firstname" : "Bob",
+        "lastname" : "Marley",
+        "image" : "profilepic1.jpeg",
+        "type": "premuim",
+        "following": ["1", "3"],
+        "followers":["3", "1", "4"],
+        "favorites":[]
+    },
+    {
+        "_id" : "3",
+        "username" : "charlie19",
+        "password" : "123",
+        "email" : "char@gmail.com",
+        "firstname" : "Charlie",
+        "lastname" : "Brown",
+        "image" : "profilepic1.jpeg",
+        "type": "regular",
+        "following": ["1", "2"],
+        "followers":["2", "1", "4"],
+        "favorites":[]
+    },
+    {
+        "_id" : "4",
+        "username" : "charlie19",
+        "password" : "123",
+        "email" : "char@gmail.com",
+        "firstname" : "Lisa",
+        "lastname" : "Cuddy",
+        "image" : "profilepic1.jpeg",
+        "type": "admin",
+        "following": ["1", "3"],
+        "followers":["3", "1", "4"],
+        "favorites":[]
     }
 
 ]
