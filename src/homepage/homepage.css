@@ -4,21 +4,14 @@
 
 .homepage__profiles{
     display:block;
-    width: 90%;
-    padding-left: 10%;
-    /* overflow-x: hidden;
-    overflow-y: scroll; */
+    width: 100%;
+    margin-left: 20%;
 }
 
-/* .homepage__profiles::-webkit-scrollbar{
-    display: none;
-} */
 
 .search__profiles{
-    padding-right: 20%;
+   margin: none;
+   padding: none;
 }
 
-.homepage_navigation{
-    padding-left: 1.5%;
-}
 

@@ -43,9 +43,9 @@ function UserProfile(){
         <div>
             <h1>Profile</h1>
             <div className = "row">
-                <div className="col-2">
+                {/* <div className="col-2">
                     <NavigationSidebar />
-                </div>
+                </div> */}
                 <div className="col-10">
                     <div className="row">
                         <div className="col-3">
@@ -55,10 +55,10 @@ function UserProfile(){
                                 <h1> Profile </h1>
                                 <h2 className = "text-left">{user.firstname} {user.lastname}</h2>
                                 {!follows && (
-                                   <button className="btn btn-primary" onClick={handleFollow}>Follow</button>
+                                   <button className="btn btn-primary" onClick={handleFollow}>FOLLOW</button>
                                 )}
                                  {follows && (
-                                   <button className="btn btn-grey" onClick={handleFollow}>Following</button>
+                                   <button className="btn btn-secondary" onClick={handleFollow}>FOLLOWING</button>
                                 )}
                         </div>
                     </div>
@@ -66,7 +66,6 @@ function UserProfile(){
             </div>
             
             {follows && (<div className="row mt-4">
-                <div className="col-2"></div>
                 <div className="col-10">
                     <MovieRow title="Favourites" url={url}/>
                     <ProfileRows title={"Following"} profileData={followingUsers}/>

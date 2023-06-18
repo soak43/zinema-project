@@ -31,9 +31,9 @@ function Profile(userProfile){
         <div>
             <h1>Profile</h1>
             <div className = "row">
-                <div className="col-2">
+                {/* <div className="col-2">
                     <NavigationSidebar />
-                </div>
+                </div> */}
                 <div className="col-10">
                     <div className="row">
                         <div className="col-3">
@@ -47,13 +47,11 @@ function Profile(userProfile){
                 </div>
             </div>
             <div className="row mt-4">
-                <div className="col-2"></div>
                 <div className="col-10">
                     <PrivateDetails user = {loggedInUser} />
                 </div>
             </div>
             <div className="row mt-4">
-                <div className="col-2"></div>
                 <div className="col-10">
                     <MovieRow title="Favourites" url={url}/>
                     <ProfileRows title={"Following"} profileData={followingUsers}/>

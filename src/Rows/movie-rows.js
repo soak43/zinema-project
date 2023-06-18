@@ -8,8 +8,6 @@ function MovieRow({title, url}){
 
     const [movies, setMovies] = useState([]);
 
-    //const fetchURL = "https://api.themoviedb/org/3/discover/tv?api_key=df7510bd7dd3fc3cf823106e7e473ecf&with_networks=213"
-
     //snippet of code which runs based on a specific condition.
     //runs when the row is loading
     //runs every time 'movies' changes
@@ -44,7 +42,7 @@ function MovieRow({title, url}){
                 <h1>{title}</h1>
                 <div className="row__posters">
                     {movies.map((movie) => (
-                        <Link /*style={{pointerEvents:'none'}} */ to="/home"><img  //links to movie content
+                        <Link /*style={{pointerEvents:'none'}} */ to={`/movie-content/${movie.id}`}><img  //links to movie content
                         /*blur the image based on the subscription type*/
                         key={movie.id}
                         className="row__poster"

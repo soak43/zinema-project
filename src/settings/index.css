@@ -1,0 +1,19 @@
+.wd-image-font {
+    margin-top: -5px;
+}
+
+.wd-nudge-up {
+    bottom: 3px;
+    left: 25px;
+}
+
+.wd-overlap {
+    position: relative;
+  }
+  
+.wd-overlap {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+  }
