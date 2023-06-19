@@ -1,10 +1,10 @@
 import axios from "axios";
 
 // API url
-const SERVER_API_URL = "";
+const SERVER_API_URL = "http://localhost:4000/api";
 
 // URL to Auth Controller
-const USERS_URL = `${SERVER_API_URL}`;
+const USERS_URL = `${SERVER_API_URL}/users`;
 
 // configure axios to support cookies
 // for passing credentials
@@ -37,8 +37,8 @@ export const updateUser = async (user) => {
 };
 
 // Register user
-export const register = async ({ username, password, fName, lName, email, phoneNum, userPlan }) => {
-    const response = await api.post(`${USERS_URL}/register`, { username, password, fName, lName, email, phoneNum, userPlan });
+export const register = async ({ firstName, lastName, email, phoneNumber, username, password, userType }) => {
+    const response = await api.post(`${USERS_URL}/register`, { firstName, lastName, email, phoneNumber, username, password, userType });
     const user = response.data;
     return user;
 }
