@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import Nav from "./nav";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
-function PayBill() {
-    const navigate = useNavigate();
+function AddCard() {
+
+        //    const navigate = useNavigate();
     return (
         <>
         <div className="container-xl px-4 mt-4">
@@ -22,8 +23,8 @@ function PayBill() {
                 <div className="col-md-8">
                 <div className="card h-100 mb-4">
                 <div className="col-9">
-                    <h2> Pay Bill</h2>
-                </div>
+                    <h2> Add Card</h2>
+                    </div>
                 </div>
                 </div>
             </div>
@@ -32,4 +33,4 @@ function PayBill() {
     );
 }
 
-export default PayBill;
+export default AddCard;

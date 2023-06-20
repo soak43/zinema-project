@@ -1,6 +1,6 @@
 
 import { Link } from "react-router-dom";
-import "./row.css";
+import "./Row.css";
 
 function ProfileRows({title, profileData}){
     return (

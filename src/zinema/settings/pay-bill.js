@@ -1,17 +1,16 @@
 import { Link } from "react-router-dom";
 import Nav from "./nav";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
-function ViewCard() {
-
-           const navigate = useNavigate();
+function PayBill() {
+    // const navigate = useNavigate();
     return (
         <>
         <div className="container-xl px-4 mt-4">
             <nav className="nav nav-tabs mb-2">
-                <Link className="nav-link ms-0" to="/settings-main">Profile</Link>
-                <Link className="nav-link active" to="/billing">Billing</Link>
-                <Link className="nav-link" to="/security">Security</Link>
+                <Link className="nav-link ms-0" to="/zinema/settings-main">Profile</Link>
+                <Link className="nav-link active" to="/zinema/billing">Billing</Link>
+                <Link className="nav-link" to="/zinema/security">Security</Link>
             </nav>
             <div style={{color: "black"}} className="row">
                 <h1>Billing Page</h1>
@@ -23,8 +22,8 @@ function ViewCard() {
                 <div className="col-md-8">
                 <div className="card h-100 mb-4">
                 <div className="col-9">
-                    <h2> View Card</h2>
-                    </div>
+                    <h2> Pay Bill</h2>
+                </div>
                 </div>
                 </div>
             </div>
@@ -33,4 +32,4 @@ function ViewCard() {
     );
 }
 
-export default ViewCard;
+export default PayBill;

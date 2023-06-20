@@ -1,4 +1,4 @@
-import Nav from "../nav";
+import Nav from "../settings/nav";
 import NavigationSidebar from "../navigation-bar/navigationbar";
 import PrivateDetails from "./private-details";
 import "./profile.css";

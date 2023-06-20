@@ -2,10 +2,9 @@ import { Link } from "react-router-dom"
 import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
-import { registerThunk } from "../services/auth-thunks"
+import { registerThunk } from "../services/auth-thunks";
 
 const RegisterScreen = () => {
-
     
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
@@ -22,12 +21,12 @@ const RegisterScreen = () => {
 
     const handleRegister = async () => {
         try {
-            await dispatch(registerThunk({firstName, lastName, email, phoneNumber, username, password, userType}));
-            navigate("/profile/*")
+          dispatch(registerThunk({ firstName, lastName, email, phoneNumber, username, password, userType }));
+          navigate("/zinema/profile");
         } catch (e) {
-            alert(e);
+          alert(e);
         }
-    }
+       };
 
     return(
         <div className="row justify-content-center">
@@ -80,11 +79,11 @@ const RegisterScreen = () => {
                     </select>
                 </div>
 
-                <button type="submit" className="row btn btn-warning fw-bold rounded-pill m-3 mb-0" onClick={handleRegister}>
+                <button className="row btn btn-warning fw-bold rounded-pill m-3 mb-0" onClick={handleRegister}>
                     Create a New Zinema Account
                 </button>
 
-                <button type="submit" className="row btn btn-outline-warning fw-bold rounded-pill m-3 mb-0">
+                <button className="row btn btn-outline-warning fw-bold rounded-pill m-3 mb-0">
                     <Link className="text-warning text-decoration-none fw-normal" to={`/`}>
                         Back
                     </Link>

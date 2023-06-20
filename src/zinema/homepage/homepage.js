@@ -45,7 +45,7 @@ function Homepage(){
     };
 
     const handleSearchMovies = () => {
-        navigate("/search-results");
+        navigate("/zinema/search-results");
     }
 
     const followingUsers = []

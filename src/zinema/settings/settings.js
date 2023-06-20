@@ -7,9 +7,9 @@ function SettingsMain() {
         <>
             <div className="container-xl px-4 mt-4">
   <nav className="nav nav-tabs mb-2">
-    <Link className="nav-link active ms-0" to="/settings-main">Profile</Link>
-    <Link className="nav-link" to="/billing">Billing</Link>
-    <Link className="nav-link" to="/security">Security</Link>
+    <Link className="nav-link active ms-0" to="/zinema/settings-main">Profile</Link>
+    <Link className="nav-link" to="/zinema/billing">Billing</Link>
+    <Link className="nav-link" to="/zinema/security">Security</Link>
   </nav>
   <div className="row">
     <div className="col-md-4">
@@ -68,7 +68,7 @@ function SettingsMain() {
                 </div>
             </div>
           </form>
-          <Link to="/settings" className="btn btn-primary" type="button">Save changes</Link>
+          <Link to="/zinema/settings" className="btn btn-primary" type="button">Save changes</Link>
         </div>
       </div>
     </div>

@@ -13,8 +13,8 @@ const LoginScreen = () => {
 
     const handleLogin = async () => {
         try {
-            await dispatch(loginThunk({ username, password }));
-            navigate("/home");
+            dispatch(loginThunk({ username, password }));
+            navigate("/zinema/home");
         } catch (e) {
             alert(e);
         }
@@ -51,4 +51,4 @@ const LoginScreen = () => {
     )
 }
 
-export default LoginScreen
+export default LoginScreen;

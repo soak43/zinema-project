@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+// import { useSelector, useDispatch } from "react-redux";
 
 function Security() {
     // const { currentUser } = useSelector((state) => state.user);
@@ -20,9 +20,9 @@ function Security() {
         <div className="container-xl px-4 mt-4">
             <div>
                 <nav className="nav nav-tabs mb-2">
-                    <Link className="nav-link ms-0" to="/settings-main">Profile</Link>
-                    <Link className="nav-link" to="/billing">Billing</Link>
-                    <Link className="nav-link active" to="/security">Security</Link>
+                    <Link className="nav-link ms-0" to="/zinema/settings-main">Profile</Link>
+                    <Link className="nav-link" to="/zinema/billing">Billing</Link>
+                    <Link className="nav-link active" to="/zinema/security">Security</Link>
                 </nav>
             <div style={{color: "black"}}>
                 <h1>Security Page</h1>
@@ -46,10 +46,10 @@ function Security() {
                 <div className="mt-2">
                     <button className="btn btn-primary mt-2 mb-2 me-2"
                     onClick={() => {
-                    navigate("/settings-main");
+                    navigate("/zinema/settings-main");
                     }}>                   Cancel</button>
                     <button className="btn btn-primary mt-2 mb-2"onClick={() => {
-                    navigate("/settings");
+                    navigate("/zinema/settings");
                     }}>    Save  </button>
                 </div>
             </div>

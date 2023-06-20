@@ -45,7 +45,7 @@ const SearchResults = () => {
           {searchResults.map((result) => (
             <div className="col-md-4 mb-4" key={result.id}>
               <div className="card">
-                <Link to={`/movie-content/${result.id}`}>
+                <Link to={`/zinema/movie-content/${result.id}`}>
                   <img
                     src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}
                     alt={result.title}

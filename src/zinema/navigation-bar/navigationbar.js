@@ -6,27 +6,30 @@ const NavigationSidebar = () => {
 
     const { pathname } = useLocation();
     const [ignore, active] = pathname.split("/");
-
-//     const {currentUser} = useSelector((state) => state.user);
+    const { currentUser } = useSelector((state) => state.user);
+    console.log(currentUser);
 
     return (
     <div className="list-group">
-        <Link to={"/home "} className={`list-group-item
+        <Link to={"/zinema/home"} className={`list-group-item
                 ${active === "home" ? "active" : ""} align-content-center`}>Home</Link>
-        <Link to={"/search-results "} className={`list-group-item
+        <Link to={"/zinema/search-results"} className={`list-group-item
                 ${active === "search-results" ? "active" : ""}`}>Search</Link>
-        <Link to={"/register "} className={`list-group-item 
-                ${active === "register" ? "active" : ""}`}>Register</Link>
-        <Link to={"/login "} className={`list-group-item 
-                ${active === "login" ? "active" : ""}`}>Login</Link>
-        <Link to={"/profile "} className={`list-group-item
+        {!currentUser &&
+                <Link to={"/zinema/register"} className={`list-group-item 
+                ${active === "register" ? "active" : ""}`}>Register</Link>}
+        {!currentUser &&
+                <Link to={"/zinema/login"} className={`list-group-item 
+                ${active === "login" ? "active" : ""}`}>Login</Link>}
+        { currentUser &&
+                <Link to={"/zinema/profile"} className={`list-group-item
                 ${active === "profile" ? "active" : ""}`}>Profile
-        </Link>
+        </Link>}
         {/* {admin && <Link to={"/allprofiles "} className={`list-group-item bg-dark text-light
                 ${active === "allprofiles" ? "active" : ""}`}>All profiles</Link>} */}
-        <Link to={"/settings "} className={`list-group-item 
+        <Link to={"/zinema/settings"} className={`list-group-item 
                 ${active === "settings" ? "active" : ""}`}>Settings</Link>
-        <Link to={"/signout "} className={`list-group-item 
+        <Link to={"/zinema/signout"} className={`list-group-item 
                 ${active === "signout" ? "active" : ""}`}>Sign Out</Link>
     </div>
     );

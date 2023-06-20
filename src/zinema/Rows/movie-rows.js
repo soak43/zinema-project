@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
-import "./row.css"
+import "./Row.css"
 
 
 
@@ -42,7 +42,7 @@ function MovieRow({title, url}){
                 <h1>{title}</h1>
                 <div className="row__posters">
                     {movies.map((movie) => (
-                        <Link /*style={{pointerEvents:'none'}} */ to={`/movie-content/${movie.id}`}><img  //links to movie content
+                        <Link /*style={{pointerEvents:'none'}} */ to={`/zinema/movie-content/${movie.id}`}><img  //links to movie content
                         /*blur the image based on the subscription type*/
                         key={movie.id}
                         className="row__poster"

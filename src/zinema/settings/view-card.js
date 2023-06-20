@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import Nav from "./nav";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
-function AddCard() {
+function ViewCard() {
 
-           const navigate = useNavigate();
+        //    const navigate = useNavigate();
     return (
         <>
         <div className="container-xl px-4 mt-4">
@@ -23,7 +23,7 @@ function AddCard() {
                 <div className="col-md-8">
                 <div className="card h-100 mb-4">
                 <div className="col-9">
-                    <h2> Add Card</h2>
+                    <h2> View Card</h2>
                     </div>
                 </div>
                 </div>
@@ -33,4 +33,4 @@ function AddCard() {
     );
 }
 
-export default AddCard;
+export default ViewCard;

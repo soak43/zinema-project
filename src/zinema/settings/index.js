@@ -1,6 +1,5 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { GoGear } from "react-icons/go";
 import { faCog } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from 'react-router-dom';
@@ -16,9 +15,9 @@ function Settings() {
         <div>
           <a className="thumbnail" href="settings.html">
             <div>
-                <Link to="/settings-main">
+                <Link to="/zinema/settings-main">
                     <FontAwesomeIcon icon={faCog} style={{color: 'black' }} className="fa fa-cog fa-2x wd-overlap" />
-                    <img src="/images/wd.avif" className="img-responsive" height="175px" width="175px" />
+                    <img src="/images/wd.avif" className="img-responsive" height="175px" width="175px" alt="img not fetched"/>
                 </Link>
             </div>
           </a>
