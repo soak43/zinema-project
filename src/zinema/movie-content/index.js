@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { addCommentThunk, fetchCommentsThunk } from '../services/movie-thunks';
 
 const MovieContent = () => {
   const { movieId } = useParams();
