@@ -1,13 +1,14 @@
 import axios from "axios";
 
 const SERVER_API_URL = "http://localhost:4000/api";
-const MOVIES_URL = `${SERVER_API_URL}/movies`;
+const MOVIES_URL = `${SERVER_API_URL}/movies/comments`;
 
 const api = axios.create({ withCredentials: true });
 
-export const addComment = async (movieId, commentData) => {
+export const createComment = async (movieId, commentData) => {
   try {
-    const response = await api.post(`${MOVIES_URL}/${movieId}/comments`, commentData);
+    console.log("in the createComment of movie services")
+    const response = await api.post(`${MOVIES_URL}/${movieId}`, commentData);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -15,10 +16,22 @@ export const addComment = async (movieId, commentData) => {
   }
 };
 
-export const fetchComments = async (movieId) => {
+export const updateComment = async (movieId, commentData) => {
+  try {
+    console.log("in the updateComment of movie services")
+    const response = await api.put(`${MOVIES_URL}/${movieId}`, commentData);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const findComments = async (movieId) => {
   try {
     // might have to change this to post
-    const response = await api.get(`${MOVIES_URL}/${movieId}/comments`);
+    console.log("in the findComments of movie services")
+    const response = await api.get(`${MOVIES_URL}/${movieId}`);
     return response.data;
   } catch (error) {
     console.error(error);

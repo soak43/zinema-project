@@ -2,14 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { addCommentThunk, fetchCommentsThunk } from '../services/movie-thunks';
+import { createCommentThunk, findCommentsThunk, updateCommentThunk } from '../services/movie-thunks';
 
 const MovieContent = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
-  const [comments, setComments] = useState([]);
+  // const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [newRating, setNewRating] = useState('');
+  const { comments, loading } = useSelector(state => state.movie)
+  const dispatch = useDispatch();
   const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
 
   // Fetch movie details
@@ -25,46 +27,22 @@ const MovieContent = () => {
     fetchMovie();
   }, [movieId]);
 
-  // Fetch comments
+  // Improved find comments
   useEffect(() => {
-    const fetchComments = async () => {
-      try {
-        const response = await axios.get(`API_URL/comments/${movieId}`);
-        setComments(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchComments();
-  }, [movieId]);
+    const findComments = () => {
+      dispatch(findCommentsThunk(movieId))
+    }
+    findComments();
+  }, [dispatch, movieId])
 
   // Submit a new comment
-  const handleSubmitComment = async (e) => {
-    e.preventDefault();
-
-    // Assuming you have a comment object with rating and commentText properties
-    const commentData = {
-      rating: newRating,
-      commentText: newComment,
-      movieId: movieId, // Assuming you have the movieId available in the component
-    };
-
-    try {
-      // Make an API call to your backend API to submit the comment data
-      const response = await axios.post('your-comment-api-endpoint', commentData);
-
-      // Handle the response and update the comment list accordingly
-      if (response.status === 200) {
-        // Update the comment list by adding the new comment to the existing comments array
-        setComments((prevComments) => [...prevComments, response.data]);
-        setNewRating('');
-        setNewComment('');
-      } else {
-        // Handle error case
-      }
-    } catch (error) {
-      console.error(error);
+  const handleSubmitComment = () => {
+    if (comments.length === 0) {
+      dispatch(createCommentThunk(movieId, newComment));
+    } else {
+      dispatch(updateCommentThunk(movieId, newComment));
     }
+    setNewComment("");
   };
 
   return (
@@ -98,18 +76,18 @@ const MovieContent = () => {
                 <strong>{comment.user}</strong> - {comment.rating}
               </div>
               <p>{comment.comment}</p>
-              {comment.replies.length > 0 && (
-                <ul className="list-unstyled ml-4">
-                  {comment.replies.map((reply) => (
-                    <li key={reply.id}>
-                      <div>
-                        <strong>{reply.user}</strong>
-                      </div>
-                      <p>{reply.comment}</p>
-                    </li>
-                  ))}
-                </ul>
-              )}
+              {/* {comment.replies.length > 0 && ( */}
+              {/*   <ul className="list-unstyled ml-4"> */}
+              {/*     {comment.replies.map((reply) => ( */}
+              {/*       <li key={reply.id}> */}
+              {/*         <div> */}
+              {/*           <strong>{reply.user}</strong> */}
+              {/*         </div> */}
+              {/*         <p>{reply.comment}</p> */}
+              {/*       </li> */}
+              {/*     ))} */}
+              {/*   </ul> */}
+              {/* )} */}
               <hr />
             </li>
           ))}
