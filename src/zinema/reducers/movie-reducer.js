@@ -21,11 +21,14 @@ const movieSlice = createSlice({
     },
     [findCommentsThunk.fulfilled]: (state, { payload }) => {
       console.log("in the findComments function of the movie-reducer method");
+      console.log("find comments reducer payload data: ", payload)
       state.loading = false;
       state.comments = payload;
     },
     [createCommentThunk.fulfilled]: (state, { payload }) => {
       console.log("in the createComment function of the movie-reducer method");
+      console.log("create comment payload: ", payload);
+      console.log("state comments: ", state.comments)
       state.loading = false;
       state.comments.push(payload);
     },

@@ -11,7 +11,10 @@ const MovieContent = () => {
   const [newComment, setNewComment] = useState('');
   const [newRating, setNewRating] = useState('');
   const { comments, loading } = useSelector(state => state.movie)
+  console.log("comments: ", comments);
   const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state.user);
+  const [profile, setProfile] = useState(currentUser);
   const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
 
   // Fetch movie details
@@ -29,21 +32,40 @@ const MovieContent = () => {
 
   // Improved find comments
   useEffect(() => {
-    const findComments = () => {
-      dispatch(findCommentsThunk(movieId))
+    const findComments = async () => {
+      await dispatch(findCommentsThunk(movieId))
     }
     findComments();
   }, [dispatch, movieId])
 
-  // Submit a new comment
-  const handleSubmitComment = () => {
-    if (comments.length === 0) {
-      dispatch(createCommentThunk(movieId, newComment));
+  // original handle submit comment:
+  const handleSubmitComment = (e) => {
+    e.preventDefault();
+    const data = { commentData: newComment, username: profile.username, rating: newRating };
+    if (!comments || comments.length === 0) {
+      const create_data = { name: movie.title, movie_id: movieId, comments: [data] };
+      dispatch(createCommentThunk(create_data));
     } else {
-      dispatch(updateCommentThunk(movieId, newComment));
+      dispatch(updateCommentThunk(movieId, data));
     }
     setNewComment("");
-  };
+  }
+
+  // Submit a new comment
+  // useEffect(() => {
+  //   const handleSubmitComment = async () => {
+  //     const data = { "commentData": newComment, "username": profile.username, "rating": newRating }
+  //     console.log("sample data: ", data);
+  //     if (!comments || comments.length === 0) {
+  //       const create_data = { "name": movie.title, "movie_id": movieId, "comments": [data] }
+  //       await dispatch(createCommentThunk(movieId, create_data));
+  //     } else {
+  //       await dispatch(updateCommentThunk(movieId, data));
+  //     }
+  //     setNewComment("");
+  //   }
+  //   handleSubmitComment();
+  // }, [dispatch])
 
   return (
     <div className="container">
@@ -68,38 +90,31 @@ const MovieContent = () => {
       <hr />
 
       <h3>Comments</h3>
-      {comments.length > 0 ? (
+      {comments ? (
         <ul className="list-unstyled">
-          {comments.map((comment) => (
-            <li key={comment.id}>
-              <div>
-                <strong>{comment.user}</strong> - {comment.rating}
-              </div>
-              <p>{comment.comment}</p>
-              {/* {comment.replies.length > 0 && ( */}
-              {/*   <ul className="list-unstyled ml-4"> */}
-              {/*     {comment.replies.map((reply) => ( */}
-              {/*       <li key={reply.id}> */}
-              {/*         <div> */}
-              {/*           <strong>{reply.user}</strong> */}
-              {/*         </div> */}
-              {/*         <p>{reply.comment}</p> */}
-              {/*       </li> */}
-              {/*     ))} */}
-              {/*   </ul> */}
-              {/* )} */}
-              <hr />
-            </li>
-          ))}
+          {/* need to figure  out how to display comments appropiately. We need to find the index of the 
+           * specific comment as well as displaying all the comments and the usernames */}
+          {loading && <li> Loading... </li>}
+          {/* {comments.comments.find((_, index) => index === 0).commentData} */}
+          {!loading && comments.comments[0].commentData}
+          {/* {comments.map((comment) => ( */}
+          {/*   <li key={comment.username}> */}
+          {/*     <div> */}
+          {/*       <strong>{comment.username}</strong> - {comment.rating} */}
+          {/*     </div> */}
+          {/*     <p>{comment.commentData}</p> */}
+          {/*     <hr /> */}
+          {/*   </li> */}
+          {/* ))} */}
         </ul>
       ) : (
         <p>No comments yet.</p>
       )}
       <h4>Add a Comment</h4>
-      <form onSubmit={handleSubmitComment}>
+      <form onSubmit={(e) => handleSubmitComment(e)}>
         <div className="form-group">
           <label>Your Rating:</label>
-          <input type="number" className="form-control" />
+          <input type="number" className="form-control" onChange={(e) => setNewRating(e.target.value)} />
         </div>
         <div className="form-group">
           <label>Your Comment:</label>

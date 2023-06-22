@@ -5,10 +5,11 @@ const MOVIES_URL = `${SERVER_API_URL}/movies/comments`;
 
 const api = axios.create({ withCredentials: true });
 
-export const createComment = async (movieId, commentData) => {
+export const createComment = async (commentData) => {
   try {
     console.log("in the createComment of movie services")
-    const response = await api.post(`${MOVIES_URL}/${movieId}`, commentData);
+    console.log("comment data in create comment service: ", commentData)
+    const response = await api.post(`${MOVIES_URL}`, commentData);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -32,6 +33,7 @@ export const findComments = async (movieId) => {
     // might have to change this to post
     console.log("in the findComments of movie services")
     const response = await api.get(`${MOVIES_URL}/${movieId}`);
+    console.log("response data:", `${MOVIES_URL}/${movieId}`)
     return response.data;
   } catch (error) {
     console.error(error);

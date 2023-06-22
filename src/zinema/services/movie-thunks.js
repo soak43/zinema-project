@@ -17,10 +17,11 @@ export const updateCommentThunk = createAsyncThunk(
 
 export const createCommentThunk = createAsyncThunk(
   "movies/createComment",
-  async (movieId, commentData) => {
+  async (commentData) => {
     try {
       console.log("inside createCommentsThunk");
-      const response = await movieService.createComment(movieId, commentData);
+      console.log("comment data in create comments thunk: ", commentData)
+      const response = await movieService.createComment(commentData);
       return response;
     } catch (error) {
       return error.message;
