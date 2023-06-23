@@ -4,10 +4,12 @@ import * as movieService from "./movie-service";
 
 export const updateCommentThunk = createAsyncThunk(
   "movies/updateComment",
-  async (movieId, commentData) => {
+  async (commentData) => {
     try {
       console.log("inside updateCommentThunk");
-      const response = await movieService.updateComment(movieId, commentData);
+      console.log("comment data in updateComment Thunk: ", commentData);
+      console.log("movie id in updateComment thunk: ", commentData.movie_id);
+      const response = await movieService.updateComment(commentData);
       return response;
     } catch (error) {
       return error.message;

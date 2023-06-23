@@ -39,33 +39,17 @@ const MovieContent = () => {
   }, [dispatch, movieId])
 
   // original handle submit comment:
-  const handleSubmitComment = (e) => {
+  const handleSubmitComment = async (e) => {
     e.preventDefault();
-    const data = { commentData: newComment, username: profile.username, rating: newRating };
+    const data = { commentData: newComment, username: profile.username, rating: newRating, movie_id: movieId };
     if (!comments || comments.length === 0) {
       const create_data = { name: movie.title, movie_id: movieId, comments: [data] };
-      dispatch(createCommentThunk(create_data));
+      await dispatch(createCommentThunk(create_data));
     } else {
-      dispatch(updateCommentThunk(movieId, data));
+      await dispatch(updateCommentThunk(data));
     }
     setNewComment("");
   }
-
-  // Submit a new comment
-  // useEffect(() => {
-  //   const handleSubmitComment = async () => {
-  //     const data = { "commentData": newComment, "username": profile.username, "rating": newRating }
-  //     console.log("sample data: ", data);
-  //     if (!comments || comments.length === 0) {
-  //       const create_data = { "name": movie.title, "movie_id": movieId, "comments": [data] }
-  //       await dispatch(createCommentThunk(movieId, create_data));
-  //     } else {
-  //       await dispatch(updateCommentThunk(movieId, data));
-  //     }
-  //     setNewComment("");
-  //   }
-  //   handleSubmitComment();
-  // }, [dispatch])
 
   return (
     <div className="container">
@@ -96,7 +80,7 @@ const MovieContent = () => {
            * specific comment as well as displaying all the comments and the usernames */}
           {loading && <li> Loading... </li>}
           {/* {comments.comments.find((_, index) => index === 0).commentData} */}
-          {!loading && comments.comments[0].commentData}
+          {!loading && comments.length > 0 && comments.comments[0].commentData}
           {/* {comments.map((comment) => ( */}
           {/*   <li key={comment.username}> */}
           {/*     <div> */}

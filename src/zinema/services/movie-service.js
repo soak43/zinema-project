@@ -17,9 +17,12 @@ export const createComment = async (commentData) => {
   }
 };
 
-export const updateComment = async (movieId, commentData) => {
+export const updateComment = async (commentData) => {
   try {
     console.log("in the updateComment of movie services")
+    console.log("movie id of commentData: ", commentData.movie_id);
+    let movieId = commentData.movie_id;
+    delete commentData["movie_id"];
     const response = await api.put(`${MOVIES_URL}/${movieId}`, commentData);
     return response.data;
   } catch (error) {

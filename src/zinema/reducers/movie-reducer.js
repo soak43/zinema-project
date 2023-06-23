@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { findCommentsThunk, createCommentThunk, updateCommentThunk } from "../services/movie-thunks";
+const initialState = {
+  comments: [],
+  loading: false
+}
 
 const movieSlice = createSlice({
   name: "movie",
-  initialState: {
-    comments: [],
-    loading: false
-  },
-  reducers: {},
+  initialState,
   extraReducers: {
     [findCommentsThunk.rejected]: (state, action) => {
       console.log("in the findComments function and it failed");
@@ -29,16 +29,24 @@ const movieSlice = createSlice({
       console.log("in the createComment function of the movie-reducer method");
       console.log("create comment payload: ", payload);
       console.log("state comments: ", state.comments)
+      console.log("state loading ", state.loading)
       state.loading = false;
       state.comments.push(payload);
     },
     [updateCommentThunk.fulfilled]: (state, { payload }) => {
       console.log("in the updateComment function of the movie-reducer method");
+      console.log("update comment reducer payload: ", payload);
+      console.log("update comment thunk state: ", state.comments);
       state.loading = false;
-      const i = state.comments.findIndex((t) => t._id === payload._id)
-      state.comments[i] = { ...state.comments[i], ...payload }
-    },
+      // const updatedArray = Array.from(state.comments);
+      // const i = updatedArray.findIndex((t) => t._id === payload._id);
+      // updatedArray[i] = { ...updatedArray[i], ...payload };
+      // state.comments = updatedArray;
+      const i = state.comments.findIndex((t) => t._id === payload._id);
+      state.comments[i] = { ...state.comments[i], ...payload };
+    }
   },
+  reducers: {}
 });
 
 export default movieSlice.reducer;
