@@ -1,7 +1,29 @@
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { profileThunk } from "../services/auth-thunks";
+
+
 function PrivateDetails( {user} ){
 
-    let u = user;
-    console.log("u = ", u.username);
+    // let u = user;
+    // console.log("u = ", u.username);
+
+    // const {currentUser} = useSelector((state) => state.user);
+
+    const dispatch = useDispatch();
+
+    const {currentUser} = useSelector((state) => state.user);
+    const [profile, setProfile] = useState(currentUser);
+
+    useEffect(() => {
+        async function loadProfile() {
+            const {payload} = await dispatch(profileThunk());
+            setProfile(payload);
+        }
+        loadProfile();
+    },[dispatch]);
+
 
     return(
         <div>
@@ -14,7 +36,7 @@ function PrivateDetails( {user} ){
                 </div>
                 <div className="col-5">
                     <div className = "ps-5">
-                        <input className="wd-no-input-border fs-5 text-black" type="text" id="firstName" value={u.firstname} disabled /> 
+                        <input style={{ backgroundColor: '#f2f6fc' }} className="wd-no-input-border fs-5 text-black" type="text" id="firstName" value={profile.firstName} disabled /> 
                     </div>
                 </div>
                 <br/>
@@ -26,7 +48,7 @@ function PrivateDetails( {user} ){
                 </div>
                 <div className="col-5">
                     <div className = "ps-5">
-                        <input className="wd-no-input-border fs-5 text-black" type="text" id="lastName" value={u.lastname} disabled /> 
+                        <input style={{ backgroundColor: '#f2f6fc' }} className="wd-no-input-border fs-5 text-black" type="text" id="lastName" value={profile.lastName} disabled /> 
                     </div>
                 </div>
                 <br/>
@@ -38,7 +60,7 @@ function PrivateDetails( {user} ){
                 </div>
                 <div className="col-5">
                     <div className = "ps-5">
-                        <input className="wd-no-input-border fs-5 text-black" type="text" id="username" value={u.username} disabled /> 
+                        <input style={{ backgroundColor: '#f2f6fc' }} className="wd-no-input-border fs-5 text-black" type="text" id="username" value={profile.username} disabled /> 
                     </div>
                 </div>
                 <br/>
@@ -50,7 +72,7 @@ function PrivateDetails( {user} ){
                 </div>
                 <div className="col-5">
                     <div className = "ps-5">
-                        <input className="wd-no-input-border fs-5 text-black" type="email" id="email" value={u.email} disabled /> 
+                        <input style={{ backgroundColor: '#f2f6fc' }} className="wd-no-input-border fs-5 text-black" type="email" id="email" value={profile.email} disabled /> 
                     </div>
                 </div>
                 <br/>
@@ -62,7 +84,7 @@ function PrivateDetails( {user} ){
                 </div>
                 <div className="col-5">
                     <div className = "ps-5">
-                        <input className="wd-no-input-border fs-5 text-black" type="password" id="password" value={u.password} disabled /> 
+                        <input style={{ backgroundColor: '#f2f6fc' }} className="wd-no-input-border fs-5 text-black" type="password" id="password" value={profile.password} disabled /> 
                     </div>
                 </div>
                 <br/>

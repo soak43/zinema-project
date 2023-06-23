@@ -1,16 +1,36 @@
 import React, {useState} from "react";
-import NavigationSidebar from "../navigation-bar/navigationbar";
+// import NavigationSidebar from "../navigation-bar/navigationbar";
 import MovieRow from "../Rows/movie-rows";
 import { Link } from "react-router-dom";
-import profiles from "../users/users.json";
+// import profiles from "../users/users.json";
 import "./homepage.css";
 import users from "../users/users.json";
 import { useNavigate } from "react-router-dom";
+import { findUserByFirstNameThunk, findUserByLastNameThunk, findUserByUsernameThunk } from "../services/user-thunk";
+import { useDispatch ,useSelector} from "react-redux";
+import {findUserByIDThunk} from "../services/user-thunk";
+import { useEffect } from "react";
+import { profileThunk } from "../services/auth-thunks";
+import axios from "axios";
+
 
 function Homepage(){
 
 
-    let loggedInUser = users.find((u) => u._id === "1");
+    // const {currentUser} = useSelector((state) => state.user);
+    // const {profileUser, followingUsers, followedUsers} = useSelector((state) => state.profile);
+
+    const { currentUser } = useSelector((state) => state.user);
+    const [profile, setProfile] = useState(currentUser);
+    const [following, setFollowing] = useState([]);
+    const [followers, setFollowers] = useState([]);
+    const [favMovies,setFavMovies] = useState([]);
+
+    console.log("Current user = ", currentUser);
+    // const [profile, setProfile] = useState(currentUser);
+    // const [following, setFollowing] = useState(followingUsers);
+    // console.log("Following = ", following);
+
     const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
 
     const url_comedy = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=35`;
@@ -20,20 +40,113 @@ function Homepage(){
     const [query, setQuery] = useState('');
     const [results, setResults] = useState([]);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const fetchProfile = async () => {
+          try {
+            const { payload } = await dispatch(profileThunk());
+            setProfile(payload);
+            // console.log("Profile picture = ", profile.profilePicture);
+          } catch (error) {
+            console.error(error);
+            navigate("/zinema/login");
+          }
+        };
+
+        const findFollowingUser = async () => {
+            try {
+                if(currentUser.followingList === null){
+                    return;
+                }
+                const followingArray = [];
+                currentUser.followingList.map(async (id) => {
+                    const {payload} = await dispatch(findUserByIDThunk(id));
+                    followingArray.push(payload);
+                })
+                setFollowing(followingArray);
+            } catch (error) {
+                console.error(error);
+                navigate("/zinema/login");
+            }
+        };
+
+        const findFollowers = async () => {
+            try {
+                if(currentUser.followerList === null){
+                    return;
+                }
+                const followerArray = [];
+                currentUser.followerList.map(async (id) => {
+                    const {payload} = await dispatch(findUserByIDThunk(id));
+                    followerArray.push(payload);
+                })
+                setFollowers(followerArray);
+            } catch (error) {
+                console.error(error);
+                navigate("/zinema/login");
+            }
+        };
+
+        // const findFavouriteMovies = async () => {
+        //     try {
+        //         if(currentUser.watchList === null){
+        //             return;
+        //         }
+        //         const favArray = [];
+        //         currentUser.watchList.map(async(movieID) => {
+        //             const movie = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${API_KEY}`);
+        //             favArray.push(movie);
+        //         })
+        //         setFavMovies(favArray);
+        //     } catch(error) {
+        //         console.error(error);
+        //         navigate("/zinema/login");
+        //     }
+        // }
+
+        fetchProfile();
+        findFollowingUser();
+        findFollowers();
+        // findFavouriteMovies();
+    },[]);
+
 
     const handleSearch = () => {
         const searchQuery = query;
 
-        const filteredProfiles = profiles.filter(
-        (profile) =>
-            profile.firstname === searchQuery || profile.lastname === searchQuery || profile.username === searchQuery
-        );
-        console.log("filtered profiles = ",filteredProfiles);
+        let filteredProfiles = [];
+
+        filteredProfiles.push(dispatch(findUserByFirstNameThunk(searchQuery)));
+        filteredProfiles.push(dispatch(findUserByLastNameThunk(searchQuery)));
+        filteredProfiles.push(dispatch(findUserByUsernameThunk(searchQuery)));
+
         setResults(filteredProfiles);
-        console.log("Result = ",results);
+
+        // const filteredProfiles = profiles.filter(
+        // (profile) =>
+        //     profile.firstname === searchQuery || profile.lastname === searchQuery || profile.username === searchQuery
+        // );
+        // console.log("filtered profiles = ",filteredProfiles);
+        // setResults(filteredProfiles);
+        // console.log("Result = ",results);
         // navigate('/profileresults');
         // console.log("Results = ",results);
     }
+
+    // const followingArray = [];
+    // useEffect(() => {
+    //     async function followingUsers() {
+    //         profile.followingList.map(async (p) => {
+    //             const {payload} = await dispatch(findUserByIDThunk(p));
+    //             followingArray.push(payload);
+    //         })
+    //         console.log("following users = ", followingArray);
+    //     }
+    //     followingUsers();
+    //     setFollowing(followingArray);
+    // },[dispatch]);
+
 
     const handleKeyPress = (e) => {
         console.log("Inside handleKeyPress");
@@ -48,11 +161,11 @@ function Homepage(){
         navigate("/zinema/search-results");
     }
 
-    const followingUsers = []
-    loggedInUser.following.map((p) => {
-        const u = users.find((u) => u._id === p);
-        followingUsers.push(u);
-    })
+    // const followingUsers = []
+    // loggedInUser.following.map((p) => {
+    //     const u = users.find((u) => findUserByIDThunk(p));
+    //     followingUsers.push(u);
+    // })
 
     return(
         <div className="homepage_navigation">
@@ -97,7 +210,7 @@ function Homepage(){
                         (<div>
                             <h1>Following</h1>
                             <div className="homepage__profiles">
-                                {followingUsers.map((profile) => (
+                                {following.map((profile) => (
                                     <Link to={`/userprofile/${profile._id}`}><img
                                     key={profile._id}
                                     className="row__profile rounded-circle"

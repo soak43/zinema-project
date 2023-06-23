@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 const NavigationSidebar = () => {
 
     const { pathname } = useLocation();
-    const [ignore, active] = pathname.split("/");
+    const [ignore, zinema, active] = pathname.split("/");
     const { currentUser } = useSelector((state) => state.user);
     console.log(currentUser);
 
@@ -29,8 +29,8 @@ const NavigationSidebar = () => {
                 ${active === "allprofiles" ? "active" : ""}`}>All profiles</Link>} */}
         <Link to={"/zinema/settings"} className={`list-group-item 
                 ${active === "settings" ? "active" : ""}`}>Settings</Link>
-        <Link to={"/zinema/signout"} className={`list-group-item 
-                ${active === "signout" ? "active" : ""}`}>Sign Out</Link>
+        { currentUser && <Link to={"/zinema/signout"} className={`list-group-item 
+                ${active === "signout" ? "active" : ""}`}>Sign Out</Link>}
     </div>
     );
 };

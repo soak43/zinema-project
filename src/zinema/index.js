@@ -18,12 +18,15 @@ import { Provider } from "react-redux";
 import authReducer from "./reducers/auth-reducer";
 import Profile from "./profile/profile";
 import HelloPage from "./hello-screen";
+import SignOut from "./signout/signout";
+import profileReducer from "./reducers/profile-reducer";
 
 const store = configureStore ({
   reducer: {
-      user: authReducer
+      user: authReducer,
+      profile : profileReducer,
   }
-})
+});
 
 
 function Zinema() {
@@ -39,10 +42,10 @@ function Zinema() {
                         <Route path="/" element={<HelloPage/>}/>
                         <Route path="/movie-content/:movieId" element={<MovieContent />} />
                         <Route path="/search-results/*" element={<SearchResults />} />
-                        <Route path="/userprofile/:profileId" element={<UserProfile/>}/>
+                        <Route path="userprofile/:profileId" element={<UserProfile/>}/>
                         <Route path="/profile/*" element={<Profile/>}/>
                         <Route path="/home" element={<Homepage />}/>
-                        <Route path="/userprofile/:profileId" element={<UserProfile />}/>
+                        {/* <Route path="/userprofile/:profileId" element={<UserProfile />}/> */}
                         <Route path="/register" element={<RegisterScreen/>}/>
                         <Route path="/login" element={<LoginScreen/>}/>
                         <Route path="/settings" element={<Settings />} />
@@ -52,6 +55,7 @@ function Zinema() {
                         <Route path="/view-card"    element={<ViewCard />} />
                         <Route path="/add-card" element={<AddCard />} />
                         <Route path="/pay-bill"  element={<PayBill />} /> 
+                        <Route path="/signout" element={<SignOut />}/>
                     </Routes>
                 </div>
             </div>

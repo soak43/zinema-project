@@ -14,7 +14,7 @@ const LoginScreen = () => {
     const handleLogin = async () => {
         try {
             dispatch(loginThunk({ username, password }));
-            navigate("/zinema/home");
+            navigate("/zinema/profile");
         } catch (e) {
             alert(e);
         }
