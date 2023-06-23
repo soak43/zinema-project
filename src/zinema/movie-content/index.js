@@ -48,6 +48,7 @@ const MovieContent = () => {
     } else {
       await dispatch(updateCommentThunk(data));
     }
+    await dispatch(findCommentsThunk(movieId));
     setNewComment("");
   }
 
@@ -76,20 +77,17 @@ const MovieContent = () => {
       <h3>Comments</h3>
       {comments ? (
         <ul className="list-unstyled">
-          {/* need to figure  out how to display comments appropiately. We need to find the index of the 
-           * specific comment as well as displaying all the comments and the usernames */}
           {loading && <li> Loading... </li>}
-          {/* {comments.comments.find((_, index) => index === 0).commentData} */}
-          {!loading && comments.length > 0 && comments.comments[0].commentData}
-          {/* {comments.map((comment) => ( */}
-          {/*   <li key={comment.username}> */}
-          {/*     <div> */}
-          {/*       <strong>{comment.username}</strong> - {comment.rating} */}
-          {/*     </div> */}
-          {/*     <p>{comment.commentData}</p> */}
-          {/*     <hr /> */}
-          {/*   </li> */}
-          {/* ))} */}
+          {!loading && comments.length > 0}
+          {comments.comments.map((comment) => (
+            <li key={comment.username}>
+              <div>
+                <strong>{comment.username}</strong> - {comment.rating}
+              </div>
+              <p>{comment.commentData}</p>
+              <hr />
+            </li>
+          ))}
         </ul>
       ) : (
         <p>No comments yet.</p>
