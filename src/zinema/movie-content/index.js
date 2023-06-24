@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { createCommentThunk, findCommentsThunk, updateCommentThunk } from '../services/movie-thunks';
+import { updateFavoritesThunk } from '../services/list-thunks';
+import { profileThunk } from '../services/auth-thunks';
 
 const MovieContent = () => {
   const { movieId } = useParams();
@@ -15,6 +17,9 @@ const MovieContent = () => {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   const [profile, setProfile] = useState(currentUser);
+  const { currentMovie, currentUpdate, new_loading } = useSelector((state) => state.list)
+  const [isFavorite, setIsFavorite] = useState(true);
+  console.log("favorite movies currently: ", profile.favorites);
   const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
 
   // Fetch movie details
@@ -38,6 +43,14 @@ const MovieContent = () => {
     findComments();
   }, [dispatch, movieId])
 
+  // retrieving up to date profile info
+  useEffect(() => {
+    const getProfile = async () => {
+      await dispatch(profileThunk())
+    }
+    getProfile();
+  }, [dispatch])
+
   // original handle submit comment:
   const handleSubmitComment = async (e) => {
     e.preventDefault();
@@ -50,6 +63,16 @@ const MovieContent = () => {
     }
     await dispatch(findCommentsThunk(movieId));
     setNewComment("");
+  }
+
+  const handleSubmitFavorites = async (e) => {
+    e.preventDefault();
+    setIsFavorite(!isFavorite);
+    // movie_id is the thing we are using for the list. username is to track the specific username 
+    // in the database. update is used to add or delete the favorite in the state
+    const data = { movie_id: movieId, username: profile.username, update: isFavorite }
+    await dispatch(updateFavoritesThunk(data))
+    await dispatch(profileThunk());
   }
 
   return (
@@ -111,6 +134,23 @@ const MovieContent = () => {
           Submit Comment
         </button>
       </form>
+      <button onClick={handleSubmitFavorites}>
+        {isFavorite ? 'Add to Favorites' : 'Remove from Favorites'}
+      </button>
+      {/* Horizontal list of favorite movies */}
+      {profile ?
+        (<div className="row">
+          <div className="col-12">
+            <h3>Favorite Movies</h3>
+            <div className="row">
+              {profile.favorites.map((fav) => (
+                <li className="col-3" key={fav.movie_id}>
+                  <span> "movie id: " <p>{fav.movie_id}</p> </span>
+                </li>
+              ))}
+            </div>
+          </div>
+        </div>) : (<p> No favorites yet </p>)}
     </div>
   );
 };
