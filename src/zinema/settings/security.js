@@ -1,21 +1,22 @@
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import React from "react";
-// import { useSelector, useDispatch } from "react-redux";
+import { profileThunk, updateUserThunk } from "../services/auth-thunks";
+import { useSelector, useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
 
 function Security() {
-    // const { currentUser } = useSelector((state) => state.user);
-    // const [profile, setProfile] = useState(currentUser);
-    // const dispatch = useDispatch();
+    const { currentUser } = useSelector((state) => state.user);
+    const [profile, setProfile] = useState(currentUser);
     const navigate = useNavigate();
-    // const save = () => { dispatch(updateUserThunk(profile)); };
-    // useEffect(() => {
-    //     async function fetchData() {	
-    //         const { payload } = await dispatch(profileThunk());	
-    //         setProfile(payload);	
-    //       }	
-    //       fetchData();	
-    //     }, [dispatch]);
+    const dispatch = useDispatch();
+    const save = () => { dispatch(updateUserThunk(profile)); };
+    useEffect(() => {
+        async function fetchData() {	
+            const { payload } = await dispatch(profileThunk());	
+            setProfile(payload);	
+          }	
+          fetchData();	
+        }, [dispatch]);
     return (
         <div className="container-xl px-4 mt-4">
             <div>
@@ -32,7 +33,13 @@ function Security() {
                         <label>Change Username</label>
                     </div>
                     <div className="col-8">
-                        <input className="form-control" type="text" placeholder="current-user-name"/>
+                        <input className="form-control" type="text" placeholder="current-user-name" value={profile.username}
+                            onChange={(event) => {
+                              const newProfile = {
+                              ...profile, username: event.target.value,
+                              };
+                              setProfile(newProfile);
+                            }}/>
                     </div>
                 </div>
                 <div className="row mt-3">
@@ -40,17 +47,18 @@ function Security() {
                         <label>Change Password</label>
                     </div>
                     <div className="col-8">
-                        <input className="form-control" type="text" placeholder="current-password"/>
+                        <input className="form-control" type="password" placeholder="current-password" value={profile.password}
+                            onChange={(event) => {
+                              const newProfile = {
+                              ...profile, password: event.target.value,
+                              };
+                              setProfile(newProfile);
+                            }}/>
                     </div>
                 </div>
                 <div className="mt-2">
-                    <button className="btn btn-primary mt-2 mb-2 me-2"
-                    onClick={() => {
-                    navigate("/zinema/settings-main");
-                    }}>                   Cancel</button>
-                    <button className="btn btn-primary mt-2 mb-2"onClick={() => {
-                    navigate("/zinema/settings");
-                    }}>    Save  </button>
+                    <Link to="/zinema/settings" className="btn btn-primary mt-2 mb-2 me-2" type="button">Cancel</Link>
+                    <Link to="/zinema/settings" className="btn btn-primary mt-2 mb-2 me-2" type="button" onClick={save}>Save</Link>
                 </div>
             </div>
             </div>

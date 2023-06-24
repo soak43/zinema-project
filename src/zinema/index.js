@@ -16,12 +16,17 @@ import { Route, Routes } from "react-router";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import authReducer from "./reducers/auth-reducer";
+import movieReducer from "./reducers/movie-reducer";
 import Profile from "./profile/profile";
 import HelloPage from "./hello-screen";
+import profileReducer from "./reducers/profile-reducer";
+import ImageSelectionPage from "./settings/image-selection"
 
 const store = configureStore ({
   reducer: {
-      user: authReducer
+      user: authReducer,
+      movie: movieReducer,
+      profile: profileReducer
   }
 })
 
@@ -36,17 +41,18 @@ function Zinema() {
                 </div>
                 <div className="col-10">
                     <Routes>
-                        <Route path="/" element={<HelloPage/>}/>
+                        <Route path="/" element={<HelloPage />} />
                         <Route path="/movie-content/:movieId" element={<MovieContent />} />
                         <Route path="/search-results/*" element={<SearchResults />} />
-                        <Route path="/userprofile/:profileId" element={<UserProfile/>}/>
-                        <Route path="/profile/*" element={<Profile/>}/>
-                        <Route path="/home" element={<Homepage />}/>
-                        <Route path="/userprofile/:profileId" element={<UserProfile />}/>
-                        <Route path="/register" element={<RegisterScreen/>}/>
-                        <Route path="/login" element={<LoginScreen/>}/>
+                        <Route path="/profile/userprofile/:profileId" element={<UserProfile />} />
+                        <Route path="/profile/*" element={<Profile />} />
+                        <Route path="/home" element={<Homepage />} />
+                        <Route path="/userprofile/:profileId" element={<UserProfile />} />
+                        <Route path="/register" element={<RegisterScreen />} />
+                        <Route path="/login" element={<LoginScreen />} />
                         <Route path="/settings" element={<Settings />} />
                         <Route path="/settings-main" element={<SettingsMain />} />
+                        <Route path="/image-selection" element={<ImageSelectionPage />} />
                         <Route path="/billing" element={<Billing />} />
                         <Route path="/security" element={<Security />} />
                         <Route path="/view-card"    element={<ViewCard />} />

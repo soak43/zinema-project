@@ -21,7 +21,7 @@ const LoginScreen = () => {
     };
 
     return(
-        <div className="row justify-content-center">
+        <div className="row justify-content-center"> 
             <h1 className="text-center">Welcome Back to Zinema!</h1>
 
             <form className="w-50 text-center">
