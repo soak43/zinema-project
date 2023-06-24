@@ -7,11 +7,13 @@ import "./homepage.css";
 import users from "../users/users.json";
 import { useNavigate } from "react-router-dom";
 
+let loggedInUser = users.find((u) => u._id === "1");
+const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
+
 function Homepage(){
 
 
-    let loggedInUser = users.find((u) => u._id === "1");
-    const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
+    
 
     const url_comedy = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=35`;
     const url_horror = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=27`;
@@ -64,7 +66,7 @@ function Homepage(){
                 <div className="col-10">
                     <input onClick={handleSearchMovies} className="form-control mb-2 bg" type="text" placeholder="Search Movies or TV Shows" />
                     <div className="row">
-                        <MovieRow title="Favourties" url={url_comedy} />
+                        <MovieRow title="Favourites" url={url_comedy} />
                     </div>
                     <div className="row">
                         <MovieRow title="Horror" url={url_horror} />
