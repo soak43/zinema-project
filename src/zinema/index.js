@@ -17,6 +17,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import authReducer from "./reducers/auth-reducer";
 import movieReducer from "./reducers/movie-reducer";
+import listReducer from "./reducers/list-reducer";
 import Profile from "./profile/profile";
 import HelloPage from "./hello-screen";
 import profileReducer from "./reducers/profile-reducer";

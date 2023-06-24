@@ -8,7 +8,7 @@ function App() {
       <BrowserRouter>
         <div className="container">
           <Routes>
-            <Route path="/" element={<Navigate to="/zinema/*" />} />
+            <Route path="/" element={<Navigate to="/zinema/" />} />
             <Route path="/zinema/*" element={<Zinema/>}/>
           </Routes>
         </div>

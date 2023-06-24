@@ -15,9 +15,9 @@ const HelloScreen = () => {
 
                 <div className="row-8 align-items-center m-0 pt-2 pb-2 border-bottom">
                     <ul className="list-group list-group-flush">
-                        <li className="list-group-item border-0 bg-dark text-white">Stream in Full HD quality</li>
+                        <li className="list-unstyled mb-1 border-0 ">Stream in Full HD quality</li>
 
-                        <li className="list-group-item border-0 bg-dark text-white">2 concurrent streams</li>
+                        <li className="list-unstyled mb-1 border-0">2 concurrent streams</li>
                         
                     </ul>
                 </div>
@@ -45,12 +45,12 @@ const HelloScreen = () => {
 
                 <div className="row-8 align-items-center m-0 pt-2 pb-2 border-bottom">
                     <ul className="list-group list-group-flush">
-                        <li className="list-group-item border-0 bg-dark text-white">Password Sharing</li>
+                        <li className="list-unstyled mb-1 border-0 ">Password Sharing</li>
 
-                        <li className="list-group-item border-0 bg-dark text-white">Premium Content</li>
-                        <li className="list-group-item border-0 bg-dark text-white">Stream in Ultra HD/4K quality</li>
+                        <li className="list-unstyled mb-1 border-0 ">Premium Content</li>
+                        <li className="list-unstyled mb-1 border-0 ">Stream in Ultra HD/4K quality</li>
 
-                        <li className="list-group-item border-0 bg-dark text-white">Up to 6 concurrent streams</li>
+                        <li className="list-unstyled mb-1 border-0 ">Up to 6 concurrent streams</li>
                         
                     </ul>
                 </div>

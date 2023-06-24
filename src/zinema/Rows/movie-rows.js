@@ -33,8 +33,6 @@ function MovieRow({title, url}){
         }
     };
 
-
-
     return (
         <div>
             {/* Favourite movies row*/}

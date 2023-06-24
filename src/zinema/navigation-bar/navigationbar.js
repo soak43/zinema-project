@@ -27,8 +27,8 @@ const NavigationSidebar = () => {
         </Link>}
         {/* {admin && <Link to={"/allprofiles "} className={`list-group-item bg-dark text-light
                 ${active === "allprofiles" ? "active" : ""}`}>All profiles</Link>} */}
-        <Link to={"/zinema/settings"} className={`list-group-item 
-                ${active === "settings" ? "active" : ""}`}>Settings</Link>
+        <Link to={"/zinema/settings-main"} className={`list-group-item 
+                ${active === "settings-main" ? "active" : ""}`}>Settings</Link>
         <Link to={"/zinema/signout"} className={`list-group-item 
                 ${active === "signout" ? "active" : ""}`}>Sign Out</Link>
     </div>
