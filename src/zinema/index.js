@@ -22,14 +22,13 @@ import HelloPage from "./hello-screen";
 import profileReducer from "./reducers/profile-reducer";
 import ImageSelectionPage from "./settings/image-selection"
 
-const store = configureStore ({
+const store = configureStore({
   reducer: {
-      user: authReducer,
-      movie: movieReducer,
-      profile: profileReducer
+    user: authReducer,
+    movie: movieReducer,
+    profile: profileReducer
   }
 })
-
 
 function Zinema() {
   return (

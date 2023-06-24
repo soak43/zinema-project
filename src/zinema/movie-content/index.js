@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { createCommentThunk, findCommentsThunk, updateCommentThunk } from '../services/movie-thunks';
 
 const MovieContent = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
-  const [comments, setComments] = useState([]);
+  // const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [newRating, setNewRating] = useState('');
+  const { comments, loading } = useSelector(state => state.movie)
+  console.log("comments: ", comments);
+  const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state.user);
+  const [profile, setProfile] = useState(currentUser);
   const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
 
   // Fetch movie details
@@ -23,47 +30,27 @@ const MovieContent = () => {
     fetchMovie();
   }, [movieId]);
 
-  // Fetch comments
+  // Improved find comments
   useEffect(() => {
-    const fetchComments = async () => {
-      try {
-        const response = await axios.get(`API_URL/comments/${movieId}`);
-        setComments(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchComments();
-  }, [movieId]);
+    const findComments = async () => {
+      await dispatch(findCommentsThunk(movieId))
+    }
+    findComments();
+  }, [dispatch, movieId])
 
-  // Submit a new comment
+  // original handle submit comment:
   const handleSubmitComment = async (e) => {
     e.preventDefault();
-
-    // Assuming you have a comment object with rating and commentText properties
-    const commentData = {
-      rating: newRating,
-      commentText: newComment,
-      movieId: movieId, // Assuming you have the movieId available in the component
-    };
-
-    try {
-      // Make an API call to your backend API to submit the comment data
-      const response = await axios.post('your-comment-api-endpoint', commentData);
-
-      // Handle the response and update the comment list accordingly
-      if (response.status === 200) {
-        // Update the comment list by adding the new comment to the existing comments array
-        setComments((prevComments) => [...prevComments, response.data]);
-        setNewRating('');
-        setNewComment('');
-      } else {
-        // Handle error case
-      }
-    } catch (error) {
-      console.error(error);
+    const data = { commentData: newComment, username: profile.username, rating: newRating, movie_id: movieId };
+    if (!comments || comments.length === 0) {
+      const create_data = { name: movie.title, movie_id: movieId, comments: [data] };
+      await dispatch(createCommentThunk(create_data));
+    } else {
+      await dispatch(updateCommentThunk(data));
     }
-  };
+    await dispatch(findCommentsThunk(movieId));
+    setNewComment("");
+  }
 
   return (
     <div className="container">
@@ -88,26 +75,16 @@ const MovieContent = () => {
       <hr />
 
       <h3>Comments</h3>
-      {comments.length > 0 ? (
+      {comments ? (
         <ul className="list-unstyled">
-          {comments.map((comment) => (
-            <li key={comment.id}>
+          {loading && <li> Loading... </li>}
+          {!loading && comments.length > 0}
+          {comments.comments.map((comment) => (
+            <li key={comment.username}>
               <div>
-                <strong>{comment.user}</strong> - {comment.rating}
+                <strong>{comment.username}</strong> - {comment.rating}
               </div>
-              <p>{comment.comment}</p>
-              {comment.replies.length > 0 && (
-                <ul className="list-unstyled ml-4">
-                  {comment.replies.map((reply) => (
-                    <li key={reply.id}>
-                      <div>
-                        <strong>{reply.user}</strong>
-                      </div>
-                      <p>{reply.comment}</p>
-                    </li>
-                  ))}
-                </ul>
-              )}
+              <p>{comment.commentData}</p>
               <hr />
             </li>
           ))}
@@ -116,10 +93,10 @@ const MovieContent = () => {
         <p>No comments yet.</p>
       )}
       <h4>Add a Comment</h4>
-      <form onSubmit={handleSubmitComment}>
+      <form onSubmit={(e) => handleSubmitComment(e)}>
         <div className="form-group">
           <label>Your Rating:</label>
-          <input type="number" className="form-control" />
+          <input type="number" className="form-control" onChange={(e) => setNewRating(e.target.value)} />
         </div>
         <div className="form-group">
           <label>Your Comment:</label>
