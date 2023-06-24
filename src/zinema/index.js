@@ -19,11 +19,13 @@ import authReducer from "./reducers/auth-reducer";
 import movieReducer from "./reducers/movie-reducer";
 import Profile from "./profile/profile";
 import HelloPage from "./hello-screen";
+import profileReducer from "./reducers/profile-reducer";
 
 const store = configureStore({
   reducer: {
     user: authReducer,
-    movie: movieReducer
+    movie: movieReducer,
+    profile: profileReducer
   }
 })
 
@@ -41,7 +43,7 @@ function Zinema() {
               <Route path="/" element={<HelloPage />} />
               <Route path="/movie-content/:movieId" element={<MovieContent />} />
               <Route path="/search-results/*" element={<SearchResults />} />
-              <Route path="/userprofile/:profileId" element={<UserProfile />} />
+              <Route path="/profile/userprofile/:profileId" element={<UserProfile />} />
               <Route path="/profile/*" element={<Profile />} />
               <Route path="/home" element={<Homepage />} />
               <Route path="/userprofile/:profileId" element={<UserProfile />} />

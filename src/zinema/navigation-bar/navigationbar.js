@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 const NavigationSidebar = () => {
 
     const { pathname } = useLocation();
-    const [ignore, active] = pathname.split("/");
+    const [ignore, zinema, active] = pathname.split("/");
     const { currentUser } = useSelector((state) => state.user);
     console.log(currentUser);
 

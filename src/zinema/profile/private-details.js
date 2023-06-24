@@ -14,7 +14,7 @@ function PrivateDetails( {user} ){
                 </div>
                 <div className="col-5">
                     <div className = "ps-5">
-                        <input className="wd-no-input-border fs-5 text-black" type="text" id="firstName" value={u.firstname} disabled /> 
+                        <input style={{ backgroundColor: '#f2f6fc' }} className="wd-no-input-border fs-5 text-black" type="text" id="firstName" value={u.firstName} disabled /> 
                     </div>
                 </div>
                 <br/>
@@ -26,7 +26,7 @@ function PrivateDetails( {user} ){
                 </div>
                 <div className="col-5">
                     <div className = "ps-5">
-                        <input className="wd-no-input-border fs-5 text-black" type="text" id="lastName" value={u.lastname} disabled /> 
+                        <input style={{ backgroundColor: '#f2f6fc' }} className="wd-no-input-border fs-5 text-black" type="text" id="lastName" value={u.lastName} disabled /> 
                     </div>
                 </div>
                 <br/>
@@ -38,7 +38,7 @@ function PrivateDetails( {user} ){
                 </div>
                 <div className="col-5">
                     <div className = "ps-5">
-                        <input className="wd-no-input-border fs-5 text-black" type="text" id="username" value={u.username} disabled /> 
+                        <input style={{ backgroundColor: '#f2f6fc' }} className="wd-no-input-border fs-5 text-black" type="text" id="username" value={u.username} disabled /> 
                     </div>
                 </div>
                 <br/>
@@ -50,7 +50,7 @@ function PrivateDetails( {user} ){
                 </div>
                 <div className="col-5">
                     <div className = "ps-5">
-                        <input className="wd-no-input-border fs-5 text-black" type="email" id="email" value={u.email} disabled /> 
+                        <input style={{ backgroundColor: '#f2f6fc' }} className="wd-no-input-border fs-5 text-black" type="email" id="email" value={u.email} disabled /> 
                     </div>
                 </div>
                 <br/>
@@ -62,7 +62,7 @@ function PrivateDetails( {user} ){
                 </div>
                 <div className="col-5">
                     <div className = "ps-5">
-                        <input className="wd-no-input-border fs-5 text-black" type="password" id="password" value={u.password} disabled /> 
+                        <input style={{ backgroundColor: '#f2f6fc' }} className="wd-no-input-border fs-5 text-black" type="password" id="password" value={u.password} disabled /> 
                     </div>
                 </div>
                 <br/>
