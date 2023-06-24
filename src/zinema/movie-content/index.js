@@ -67,12 +67,12 @@ const MovieContent = () => {
 
   const handleSubmitFavorites = async (e) => {
     e.preventDefault();
-    setIsFavorite(!isFavorite);
     // movie_id is the thing we are using for the list. username is to track the specific username 
     // in the database. update is used to add or delete the favorite in the state
     const data = { movie_id: movieId, username: profile.username, update: isFavorite }
     await dispatch(updateFavoritesThunk(data))
-    await dispatch(profileThunk());
+    // await dispatch(profileThunk());
+    setIsFavorite(!isFavorite);
   }
 
   return (
