@@ -20,6 +20,9 @@ function Homepage(){
     console.log("Profile = ", profile);
     const [following, setFollowing] = useState([]);
     const [favMovies,setFavMovies] = useState([]);
+    const [loadingfollowing, setLoadingfollowing] = useState(true);
+    const [loadingmovies, setLoadingmovies] = useState(true);
+
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -73,15 +76,59 @@ function Homepage(){
         }
     };
 
+    const findFollowingUser = async (profile) => {
+        try {
+          // console.log("State.user = ", state.user);
+            if(profile.followingList === null){
+              setFollowing(followingArray);
+                return;
+            }
+            const followingArray = [];
+            profile.followingList.map(async(element) => {
+                const userID = element.user_id; 
+                const {payload} = await dispatch(findUserByIDThunk(userID));
+                followingArray.push(payload);
+                setLoadingfollowing(false);
+                setFollowing([...followingArray]);
+            })
+            //setFollowing(followingArray);
+            console.log("following = ", following);
+        } catch (error) {
+            console.error(error);
+            navigate("/zinema/login");
+        }
+    };
+
+    const findFavouriteMovies = async (currentUser) => {
+        try {
+            if(currentUser.watchList === null){
+                console.log("NULL watchlist");
+                setLoadingmovies(false);
+                return;
+            }
+            const favArray = [];
+            currentUser.watchList.map(async (element) => {
+                console.log("element.movie_id = ", element.movie_id);
+                const movieID = element.movie_id; 
+                console.log("MOVIE ID = ", movieID);
+                const movie = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${API_KEY}`);
+                console.log("Movie = ", movie.data);
+                favArray.push(movie.data);
+                setLoadingmovies(false);
+            })
+            setFavMovies(favArray);
+        } catch(error) {
+            console.error(error);
+            navigate("/zinema/login");
+        }
+    };
    
     useEffect(() => {
         setTimeout(()=>{console.log("HELLO")}, 2000);
-
         const fetchData = async () => {
             try {
               await fetchProfile();
-              await findFollowingUser();
-              await findFavouriteMovies();
+
             } catch (error) {
               console.error(error);
               navigate("/zinema/login");
@@ -92,6 +139,13 @@ function Homepage(){
           try {
             const { payload } = await dispatch(profileThunk());
             setProfile(payload);
+            await findFollowingUser(payload);
+            await findFavouriteMovies(payload);
+            // if(currentUser !== null){
+            //   await findFollowingUser();
+            //   await findFollowers();
+            //   await findFavouriteMovies();
+            // }
             // console.log("Profile picture = ", profile.profilePicture);
           } catch (error) {
             console.error(error);
@@ -99,54 +153,38 @@ function Homepage(){
           }
         };
 
-        const findFollowingUser = async () => {
-            try {
-                if(profile.followingList === null){
-                    return;
-                }
-                const followingArray = [];
-                profile.followingList.map(async(element) => {
-                    const userID = element.user_id; 
-                    const {payload} = await dispatch(findUserByIDThunk(userID));
-                    followingArray.push(payload);
-                })
-                setFollowing(followingArray);
-                console.log("following = ", following);
-            } catch (error) {
-                console.error(error);
-                navigate("/zinema/login");
-            }
-        };
-
-        const findFavouriteMovies = async () => {
-            try {
-                if(profile.watchList === null){
-                    console.log("NULL watchlist");
-                    return;
-                }
-                const favArray = [];
-                profile.watchList.map(async (element) => {
-                    console.log("element.movie_id = ", element.movie_id);
-                    const movieID = element.movie_id; 
-                    console.log("MOVIE ID = ", movieID);
-                    const movie = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${API_KEY}`);
-                    console.log("Movie = ", movie.data);
-                    favArray.push(movie.data);
-                })
-                setFavMovies(favArray);
-            } catch(error) {
-                console.error(error);
-                navigate("/zinema/login");
-            }
-        };
-
-        // fetchProfile();
-        // findFollowingUser();
-        // findFavouriteMovies();
         fetchData();
     },[dispatch]);
 
 
+    if(currentUser === null){
+        return(
+        <div className="homepage_navigation">
+            <h1 className="text-center">ZINEMA</h1>
+            <div className="row ">
+                {/* <div className="col-2">
+                    <NavigationSidebar />
+                </div> */}
+                <div className="col-10">
+                    <input onClick={handleSearchMovies} className="form-control mb-2 bg" type="text" placeholder="Search Movies or TV Shows" />
+                    <div className="row">
+                        <MovieRow title="Horror" url={url_horror} />
+                    </div>
+                    <div className="row">
+                        <MovieRow title="Romantic" url={url_romantic}/>
+                    </div>
+                </div>
+                </div>
+            </div>
+        );
+        
+    }else if(loadingfollowing || loadingmovies){
+        return(
+          <div>
+            Loading...
+          </div>
+        );
+    } else {
 
     return(
         <div className="homepage_navigation">
@@ -210,6 +248,7 @@ function Homepage(){
             </div>
         </div>
     );
+    }
 };
 
 export default Homepage;
