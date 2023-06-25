@@ -9,6 +9,7 @@ import { findUserByIDThunk, findUserByFirstNameThunk, findUserByLastNameThunk, f
 import axios from "axios";
 import Favorites from "../Rows/favorite-movie-row";
 import ProfileRows from "../Rows/profile-rows";
+import { searchProfileThunk } from "../services/user-thunks";
 
 function Homepage(){
 
@@ -41,29 +42,28 @@ function Homepage(){
         navigate("/zinema/search-results");
     };
 
-    const findUserOnFirstname = async (searchQuery) => {
-        await dispatch(findUserByFirstNameThunk(searchQuery));
-    };
+    // const findUserOnFirstname = async (searchQuery) => {
+    //     await dispatch(findUserByFirstNameThunk(searchQuery));
+    // };
 
-    const findUserOnLastname = async (searchQuery) => {
-        await dispatch(findUserByLastNameThunk(searchQuery));
-    };
+    // const findUserOnLastname = async (searchQuery) => {
+    //     await dispatch(findUserByLastNameThunk(searchQuery));
+    // };
 
-    const findUserOnUsername = async (searchQuery) => {
-        await dispatch(findUserByUsernameThunk(searchQuery));
-    };
+    // const findUserOnUsername = async (searchQuery) => {
+    //     await dispatch(findUserByUsernameThunk(searchQuery));
+    // };
 
-    
+
     const handleSearch = async () => {
         const searchQuery = query;
 
-        const profilesFetched = [];
-        profilesFetched.push(await findUserOnFirstname(searchQuery));
-        profilesFetched.push(await findUserOnLastname(searchQuery));
-        profilesFetched.push(await findUserOnUsername(searchQuery));
-
-        setResults(profilesFetched);
-
+        const {payload} = await dispatch(searchProfileThunk(searchQuery));
+        // profilesFetched.push(await findUserOnFirstname(searchQuery));
+        // profilesFetched.push(await findUserOnLastname(searchQuery));
+        // profilesFetched.push(await findUserOnUsername(searchQuery));
+        console.log("Payload search profiles = ", payload);
+        setResults(payload);
         console.log("Result = ",results);
         
     }

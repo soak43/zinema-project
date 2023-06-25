@@ -21,17 +21,24 @@ export const findUserById = async ({ uid }) => {
     return user;
 };
 
-export const findUserByFirstName = async ({ firstName }) => {
-    const response = await axios.get(`${USERS_URL}/firstname/${firstName}`);
-    const user = response.data;
-    return user;
-};
+// export const findUserByFirstName = async ({ firstName }) => {
+//     const response = await axios.get(`${USERS_URL}/firstname/${firstName}`);
+//     const user = response.data;
+//     return user;
+// };
 
-export const findUserByLastName = async ({ lastName }) => {
-    const response = await axios.get(`${USERS_URL}/lastname/${lastName}`);
-    const user = response.data;
-    return user;
-};
+// export const findUserByLastName = async ({ lastName }) => {
+//     const response = await axios.get(`${USERS_URL}/lastname/${lastName}`);
+//     const user = response.data;
+//     return user;
+// };
+
+export const searchProfileService = async ({query}) => {
+    const response = await axios.get(`${USERS_URL}/searchprofile/${query}`);
+    const profilesFound = response.data;
+    console.log("profiles found = ", profilesFound);
+    return profilesFound;
+}
 
 
 export const findUserByUsername = async ({ username }) => {
