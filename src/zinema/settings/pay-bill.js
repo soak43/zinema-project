@@ -45,7 +45,7 @@ function PayBill() {
           <div className="card h-100 mb-4">
             <div className="card-header">Payment Details</div>
             <div className="card-body">
-              {profile.billingStatus === 'PENDING' ? (
+              {profile?.billingStatus === 'PENDING' ? (
                 <Link
                   to="/zinema/settings-main"
                   className="btn btn-primary"
