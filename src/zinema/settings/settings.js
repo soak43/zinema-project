@@ -6,23 +6,26 @@ import React, { useState, useEffect } from "react";
 
 function SettingsMain() {
   const { currentUser } = useSelector((state) => state.user);
-  const [profile, setProfile] = useState(currentUser);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const save = () => { dispatch(updateUserThunk(profile)); };
-  useEffect(() => {
-    const fetchData = async () => {
-      const { payload } = await dispatch(profileThunk());
-      setProfile(payload || {});
-    };
-    fetchData();
-  }, [dispatch]);
+    const [profile, setProfile] = useState(currentUser);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const save = () => { dispatch(updateUserThunk(profile)); 
+    console.log("settings profile", profile);
+    navigate("/zinema/profile");};
+    useEffect(() => {
+        async function fetchData() {	
+            const { payload } = await dispatch(profileThunk());	
+            console.log("profilethunk", payload);
+            setProfile(payload);	
+          }	
+          fetchData();	
+        }, [dispatch]);
     return(
       <>
         <div className="container-xl px-4 mt-4">
           <nav className="nav nav-tabs mb-2">
-            <Link className="nav-link active ms-0" to="/zinema/settings-main">Profile</Link>
-            <Link className="nav-link" to="/zinema/billing">Billing</Link>
+            <a className="nav-link active ms-0" href="/zinema/settings-main">Profile</a>
+            <a className="nav-link" href="/zinema/billing">Billing</a>
             <a className="nav-link" href="/zinema/security">Security</a>
           </nav>
           <div className="row">

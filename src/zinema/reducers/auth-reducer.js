@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { current, createSlice } from "@reduxjs/toolkit";
 import { loginThunk, logoutThunk, registerThunk, profileThunk, updateUserThunk } from "../services/auth-thunks";
 
 const authSlice = createSlice({
@@ -19,13 +19,18 @@ const authSlice = createSlice({
     state.currentUser = null;
   },
   [updateUserThunk.fulfilled]: (state, { payload }) => {
-    state.currentUser = payload;
+    console.log("update user", current(state));
+    console.log("update user", payload);
+    state.currentUser = payload ;
+    console.log("update user", state.currentUser)
   },
 
     [registerThunk.fulfilled]: (state, { payload }) => {
       state.currentUser = payload;
     },   
    [loginThunk.fulfilled]: (state, { payload }) => {
+    console.log("login user", current(state));
+    console.log("login user", payload);
      state.currentUser = payload;
    },
  },

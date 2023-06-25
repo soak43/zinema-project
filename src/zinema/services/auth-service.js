@@ -22,9 +22,11 @@ export const logout = async () => {
 };
 export const profile = async () => {
   const response = await api.post(`${USERS_URL}/profile`);
+  console.log(response.data);
   return response.data;
 };
 export const updateUser = async (user) => {
   const response = await api.put(`${USERS_URL}`, user);
+  console.log("update user:", response.data);
   return response.data;
 };

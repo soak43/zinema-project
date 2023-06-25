@@ -34,66 +34,97 @@ function AddCard() {
     return (
         <>
         <div className="container-xl px-4 mt-4">
-          <nav className="nav nav-tabs mb-2">
-            <Link className="nav-link" to="/zinema/settings-main">Profile</Link>
-            <Link className="nav-link active ms-0" to="/zinema/billing">Billing</Link>
-            <Link className="nav-link" to="/zinema/security">Security</Link>
-          </nav>
-          <div className="row">
-            <div className="col-md-4">
-              <div className="card h-100 mb-4 mb-xl-0">
-                <div className="card-header">Card options</div>
-                <Nav />
-              </div>
-            </div>
-            <div className="col-md-8">
-              <div className="card h-100 mb-4">
-                <div className="card-header">Add Card Details</div>
-                <div className="card-body">
-                  <form>
-                    
-                    <div className="mb-3">
-                        <label className="small mb-1" for="inputCard">Card number</label>
-                        <input className="form-control" id="inputCard" placeholder="Enter your card number"
-                        onChange={(event) => {
-                          const newProfile = {
-                          ...profile, cardNumber: event.target.value,
-                          };
-                          setProfile(newProfile);
-                        }}/>
-                    </div>
-                    
-                    <div className="row gx-3 mb-3">
-                        
-                        <div className="col-md-6">
-                            <label className="small mb-1" for="inputExpiry">Expiry</label>
-                            <input className="form-control" id="inputExpiry" placeholder="Enter expiry" 
-                            onChange={(event) => {
-                              const newProfile = {
-                              ...profile, expiry: event.target.value,
-                              };
-                              setProfile(newProfile);
-                            }}/>
-                        </div>
-                        
-                        <div className="col-md-6">
-                            <label className="small mb-1" for="inputCVV">CVV</label>
-                            <input className="form-control" id="inputExpiry" type="text" placeholder="Enter CVV"
-                            onChange={(event) => {
-                              const newProfile = {
-                              ...profile, cvv: event.target.value,
-                              };
-                              setProfile(newProfile);
-                            }}/>
-                        </div>
-                    </div>
-                  </form>
-                  <Link to="/zinema/settings" className="btn btn-primary" type="button" onClick={save}>Add card</Link>
+      <nav className="nav nav-tabs mb-2">
+        <Link className="nav-link" to="/zinema/settings-main">
+          Profile
+        </Link>
+        <Link className="nav-link active ms-0" to="/zinema/billing">
+          Billing
+        </Link>
+        <Link className="nav-link" to="/zinema/security">
+          Security
+        </Link>
+      </nav>
+      <div className="row">
+        <div className="col-lg-4 col-md-6">
+          <div className="card h-100 mb-4 mb-xl-0">
+            <div className="card-header">Card options</div>
+            <Nav />
+          </div>
+        </div>
+        <div className="col-lg-8 col-md-6">
+          <div className="card h-100 mb-4">
+            <div className="card-header">Add Card Details</div>
+            <div className="card-body">
+              <form>
+                <div className="mb-3">
+                  <label className="small mb-1" htmlFor="inputCard">
+                    Card number
+                  </label>
+                  <input
+                    className="form-control"
+                    id="inputCard"
+                    placeholder="Enter your card number"
+                    onChange={(event) => {
+                      const newProfile = {
+                        ...profile,
+                        cardNumber: event.target.value,
+                      };
+                      setProfile(newProfile);
+                    }}
+                  />
                 </div>
-              </div>
+                <div className="row gx-3 mb-3">
+                  <div className="col-md-6">
+                    <label className="small mb-1" htmlFor="inputExpiry">
+                      Expiry
+                    </label>
+                    <input
+                      className="form-control"
+                      id="inputExpiry"
+                      placeholder="Enter expiry"
+                      onChange={(event) => {
+                        const newProfile = {
+                          ...profile,
+                          expiry: event.target.value,
+                        };
+                        setProfile(newProfile);
+                      }}
+                    />
+                  </div>
+                  <div className="col-md-6">
+                    <label className="small mb-1" htmlFor="inputCVV">
+                      CVV
+                    </label>
+                    <input
+                      className="form-control"
+                      id="inputCVV"
+                      type="text"
+                      placeholder="Enter CVV"
+                      onChange={(event) => {
+                        const newProfile = {
+                          ...profile,
+                          cvv: event.target.value,
+                        };
+                        setProfile(newProfile);
+                      }}
+                    />
+                  </div>
+                </div>
+              </form>
+              <Link
+                to="/zinema/settings"
+                className="btn btn-primary"
+                type="button"
+                onClick={save}
+              >
+                Add card
+              </Link>
             </div>
           </div>
         </div>
+      </div>
+    </div>
         </>
     );
 }

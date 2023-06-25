@@ -35,7 +35,7 @@ function Profile(){
     console.log("Follower list = ", profile.followerList);
     console.log("WATCH list = ", profile.watchList);
 
-    profile.followingList.map((element) => {
+    profile.followingList?.map((element) => {
         const userID = element.user_id;
         console.log("user id = ", userID);
         console.log(`someString/${userID}`);
@@ -134,7 +134,7 @@ function Profile(){
                 return;
               }
           
-              const followingArray = await Promise.all(profile.followingList.map(async (element) => {
+              const followingArray = await Promise.all(profile.followingList?.map(async (element) => {
                 const userID = element.user_id;
                 const { payload } = await dispatch(findUserByIDThunk(userID));
                 return payload;
@@ -156,7 +156,7 @@ function Profile(){
               }
           
               const followerArray = [];
-              await Promise.all(profile.followerList.map(async (element) => {
+              await Promise.all(profile.followerList?.map(async (element) => {
                 const userID = element.user_id;
                 const { payload } = await dispatch(findUserByIDThunk(userID));
                 followerArray.push(payload);
