@@ -27,7 +27,7 @@ const LoginScreen = () => {
             <form className="w-50 text-center">
 
                 <div className="form-group p-2">
-                    <input type="text" className="form-control form-control-sm rounded-3" id="InputEmailOrPhone" placeholder="Email or Phone Number" value={username} onChange={(event) => setUsername(event.target.value)}></input>
+                    <input type="text" className="form-control form-control-sm rounded-3" id="InputEmailOrPhone" placeholder="Username" value={username} onChange={(event) => setUsername(event.target.value)}></input>
                 </div>
 
                 <div className="form-group p-2">
