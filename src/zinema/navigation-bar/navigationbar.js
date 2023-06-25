@@ -67,7 +67,7 @@ const NavigationSidebar = () => {
         }
         
         { currentUser && 
-                <Link to={"/zinema/signout"} className={`list-group-item 
+                <Link to={"/zinema/settings"} className={`list-group-item 
                 ${active === "signout" ? "active" : ""}`}>
                         <i className="bi bi-box-arrow-in-left"></i>
                         <span className="d-none d-md-none d-lg-inline d-xl-inline">

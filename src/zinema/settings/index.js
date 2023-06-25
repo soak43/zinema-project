@@ -29,7 +29,7 @@ function Settings() {
           <h1 style={{color: 'black' }}>  Sign Out </h1>
         </div>
         <div>
-          <a className="thumbnail" href="settings.html">
+          <a className="thumbnail">
             <div>
                 <FontAwesomeIcon icon={faCog} style={{color: 'black' }} className="fa fa-cog fa-2x wd-overlap" />
                 <img src={profile.profilePicture} className="img-responsive" height="175px" width="175px" alt="img not fetched"/>
