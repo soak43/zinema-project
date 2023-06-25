@@ -41,7 +41,7 @@ export const findUserByUsername = async ({ username }) => {
 };
 
 export const updateAnyUser = async ({user, updates}) => {
-    const response = await axios.get(`${USERS_URL}/updates`, {user, updates});
+    const response = await axios.put(`${USERS_URL}/update/anyuser`, {user, updates});
     const updatedUser = response.data;
     return updatedUser; 
 };

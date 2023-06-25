@@ -12,6 +12,7 @@ import { profileThunk } from "../services/auth-thunks";
 import { findUserByIDThunk } from "../services/user-thunks";
 import axios from "axios";
 import Favorites from "../Rows/favorite-movie-row";
+import Loaddata from "../load-data";
 // import following from "../following/following.json";
 // import followers from "../following/followers.json";
 // import requests from "../requests";
@@ -42,8 +43,30 @@ function Profile(){
         console.log("ID = ", element);
         console.log(`someString/${element}`);
     });
+
+    // Loaddata();
     
     useEffect(() => {
+
+      // const profile = JSON.parse(localStorage.getItem('currentUser'));
+      // if (profile) {
+      //   setProfile(profile);
+      // }
+
+      // const followingList = JSON.parse(localStorage.getItem('followingList'));
+      // if (followingList) {
+      //   setFollowing(followingList);
+      // }
+
+      // const followerList = JSON.parse(localStorage.getItem('followerList'));
+      // if (followerList) {
+      //   setFollowers(followerList);
+      // }
+
+      // const favMoviesList = JSON.parse(localStorage.getItem('favMovies'));
+      // if (favMoviesList) {
+      //   setFavMovies(favMoviesList);
+      // }
         setTimeout(()=>{console.log("HELLO")}, 2000);
         const fetchData = async () => {
             try {
@@ -68,130 +91,135 @@ function Profile(){
           }
         };
 
-        // const findFollowingUser = async () => {
-        //     try {
-        //         if(profile.followingList === null){
-        //             return;
-        //         }
-        //         const followingArray = [];
-        //         profile.followingList.map(async(element) => {
-        //             const userID = element.user_id; 
-        //             const {payload} = await dispatch(findUserByIDThunk(userID));
-        //             followingArray.push(payload);
-        //         })
-        //         setFollowing(followingArray);
-        //         console.log("following = ", following);
-        //     } catch (error) {
-        //         console.error(error);
-        //         navigate("/zinema/login");
-        //     }
-        // };
-
-        // const findFollowers = async () => {
-        //     try {
-        //         if(profile.followerList === null){
-        //             return;
-        //         }
-        //         const followerArray = [];
-        //         profile.followerList.map(async (element) => {
-        //             const userID = element.user_id;
-        //             const {payload} = await dispatch(findUserByIDThunk(userID));
-        //             followerArray.push(payload);
-        //         })
-        //         setFollowers(followerArray);
-        //         console.log("followers = ", followers);
-        //     } catch (error) {
-        //         console.error(error);
-        //         navigate("/zinema/login");
-        //     }
-        // };
-
-        // const findFavouriteMovies = async () => {
-        //     try {
-        //         if(profile.watchList === null){
-        //             console.log("NULL watchlist");
-        //             return;
-        //         }
-        //         const favArray = [];
-        //         profile.watchList.map(async (element) => {
-        //             console.log("element.movie_id = ", element.movie_id);
-        //             const movieID = element.movie_id; 
-        //             console.log("MOVIE ID = ", movieID);
-        //             const movie = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${API_KEY}`);
-        //             console.log("Movie = ", movie.data);
-        //             favArray.push(movie.data);
-        //         })
-        //         setFavMovies(favArray);
-        //     } catch(error) {
-        //         console.error(error);
-        //         navigate("/zinema/login");
-        //     }
-        // };
-
         const findFollowingUser = async () => {
             try {
-              if (profile.followingList === null) {
-                return;
-              }
-          
-              const followingArray = await Promise.all(profile.followingList.map(async (element) => {
-                const userID = element.user_id;
-                const { payload } = await dispatch(findUserByIDThunk(userID));
-                return payload;
-              }));
-          
-              setFollowing(followingArray);
-              console.log("following =", following);
+                if(profile.followingList === null){
+                    return;
+                }
+                const followingArray = [];
+                profile.followingList.map(async(element) => {
+                    const userID = element.user_id; 
+                    const {payload} = await dispatch(findUserByIDThunk(userID));
+                    followingArray.push(payload);
+                })
+                setFollowing(followingArray);
+                console.log("following = ", following);
             } catch (error) {
-              console.error(error);
-              navigate("/zinema/login");
+                console.error(error);
+                navigate("/zinema/login");
             }
-          };
-          
+        };
 
         const findFollowers = async () => {
             try {
-              if (profile.followerList === null) {
-                return;
-              }
-          
-              const followerArray = [];
-              await Promise.all(profile.followerList.map(async (element) => {
-                const userID = element.user_id;
-                const { payload } = await dispatch(findUserByIDThunk(userID));
-                followerArray.push(payload);
-              }));
-          
-              setFollowers(followerArray);
-              console.log("followers =", followers);
+                if(profile.followerList === null){
+                    return;
+                }
+                const followerArray = [];
+                profile.followerList.map(async (element) => {
+                    const userID = element.user_id;
+                    const {payload} = await dispatch(findUserByIDThunk(userID));
+                    followerArray.push(payload);
+                })
+                setFollowers(followerArray);
+                console.log("followers = ", followers);
             } catch (error) {
-              console.error(error);
-              navigate("/zinema/login");
+                console.error(error);
+                navigate("/zinema/login");
             }
-        };          
+        };
 
         const findFavouriteMovies = async () => {
             try {
-              if (profile.watchList === null) {
-                console.log("NULL watchlist");
-                return;
-              }
-          
-              const favArray = await Promise.all(profile.watchList.map(async (element) => {
-                console.log("element.movie_id =", element.movie_id);
-                const movieID = element.movie_id;
-                console.log("MOVIE ID =", movieID);
-                const movie = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${API_KEY}`);
-                console.log("Movie =", movie.data);
-                return movie.data;
-              }));
-          
-              setFavMovies(favArray);
-            } catch (error) {
-              console.error(error);
-              navigate("/zinema/login");
+                if(profile.watchList === null){
+                    console.log("NULL watchlist");
+                    return;
+                }
+                const favArray = [];
+                profile.watchList.map(async (element) => {
+                    console.log("element.movie_id = ", element.movie_id);
+                    const movieID = element.movie_id; 
+                    console.log("MOVIE ID = ", movieID);
+                    const movie = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${API_KEY}`);
+                    console.log("Movie = ", movie.data);
+                    favArray.push(movie.data);
+                })
+                setFavMovies(favArray);
+            } catch(error) {
+                console.error(error);
+                navigate("/zinema/login");
             }
         };
+
+
+
+
+
+
+        // const findFollowingUser = async () => {
+        //     try {
+        //       if (profile.followingList === null) {
+        //         return;
+        //       }
+          
+        //       const followingArray = await Promise.all(profile.followingList.map(async (element) => {
+        //         const userID = element.user_id;
+        //         const { payload } = await dispatch(findUserByIDThunk(userID));
+        //         return payload;
+        //       }));
+          
+        //       setFollowing(followingArray);
+        //       console.log("following =", following);
+        //     } catch (error) {
+        //       console.error(error);
+        //       navigate("/zinema/login");
+        //     }
+        //   };
+          
+
+        // const findFollowers = async () => {
+        //     try {
+        //       if (profile.followerList === null) {
+        //         return;
+        //       }
+          
+        //       const followerArray = [];
+        //       await Promise.all(profile.followerList.map(async (element) => {
+        //         const userID = element.user_id;
+        //         const { payload } = await dispatch(findUserByIDThunk(userID));
+        //         followerArray.push(payload);
+        //       }));
+          
+        //       setFollowers(followerArray);
+        //       console.log("followers =", followers);
+        //     } catch (error) {
+        //       console.error(error);
+        //       navigate("/zinema/login");
+        //     }
+        // };          
+
+        // const findFavouriteMovies = async () => {
+        //     try {
+        //       if (profile.watchList === null) {
+        //         console.log("NULL watchlist");
+        //         return;
+        //       }
+          
+        //       const favArray = await Promise.all(profile.watchList.map(async (element) => {
+        //         console.log("element.movie_id =", element.movie_id);
+        //         const movieID = element.movie_id;
+        //         console.log("MOVIE ID =", movieID);
+        //         const movie = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${API_KEY}`);
+        //         console.log("Movie =", movie.data);
+        //         return movie.data;
+        //       }));
+          
+        //       setFavMovies(favArray);
+        //     } catch (error) {
+        //       console.error(error);
+        //       navigate("/zinema/login");
+        //     }
+        // };
           
 
         // fetchProfile();

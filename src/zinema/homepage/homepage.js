@@ -5,9 +5,10 @@ import "./homepage.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { profileThunk } from "../services/auth-thunks";
-import { findUserByIDThunk } from "../services/user-thunks";
+import { findUserByIDThunk, findUserByFirstNameThunk, findUserByLastNameThunk, findUserByUsernameThunk } from "../services/user-thunks";
 import axios from "axios";
 import Favorites from "../Rows/favorite-movie-row";
+import ProfileRows from "../Rows/profile-rows";
 
 function Homepage(){
 
@@ -33,36 +34,60 @@ function Homepage(){
     const [results, setResults] = useState([]);
     console.log("QUERY = ", query);
 
-    // const handleSearch = () => {
-    //     const searchQuery = query;
-
-    //     const filteredProfiles = profiles.filter(
-    //     (profile) =>
-    //         profile.firstname === searchQuery || profile.lastname === searchQuery || profile.username === searchQuery
-    //     );
-    //     console.log("filtered profiles = ",filteredProfiles);
-    //     setResults(filteredProfiles);
-    //     console.log("Result = ",results);
-    //     // navigate('/profileresults');
-    //     // console.log("Results = ",results);
-    // }
-
-    // const handleKeyPress = (e) => {
-    //     console.log("Inside handleKeyPress");
-    //     if (e.key === 'Enter' || e.key === 'Return') {
-    //         console.log("Enter pressed");
-    //       handleSearch();
-    //     }
-       
-    // };
-
     const handleSearchMovies = () => {
         navigate("/zinema/search-results");
+    };
+
+    const findUserOnFirstname = async (searchQuery) => {
+        await dispatch(findUserByFirstNameThunk(searchQuery));
+    };
+
+    const findUserOnLastname = async (searchQuery) => {
+        await dispatch(findUserByLastNameThunk(searchQuery));
+    };
+
+    const findUserOnUsername = async (searchQuery) => {
+        await dispatch(findUserByUsernameThunk(searchQuery));
+    };
+
+    
+    const handleSearch = async () => {
+        const searchQuery = query;
+
+        const profilesFetched = [];
+        profilesFetched.push(await findUserOnFirstname(searchQuery));
+        profilesFetched.push(await findUserOnLastname(searchQuery));
+        profilesFetched.push(await findUserOnUsername(searchQuery));
+
+        setResults(profilesFetched);
+
+        console.log("Result = ",results);
+        
     }
+
+    const handleKeyPress = (e) => {
+        console.log("Inside handleKeyPress");
+        if (e.key === 'Enter' || e.key === 'Return') {
+            console.log("Enter pressed");
+          handleSearch();
+        }
+    };
 
    
     useEffect(() => {
         setTimeout(()=>{console.log("HELLO")}, 2000);
+
+        const fetchData = async () => {
+            try {
+              await fetchProfile();
+              await findFollowingUser();
+              await findFavouriteMovies();
+            } catch (error) {
+              console.error(error);
+              navigate("/zinema/login");
+            }
+        };
+
         const fetchProfile = async () => {
           try {
             const { payload } = await dispatch(profileThunk());
@@ -115,79 +140,11 @@ function Homepage(){
             }
         };
 
-        fetchProfile();
-        findFollowingUser();
-        findFavouriteMovies();
+        // fetchProfile();
+        // findFollowingUser();
+        // findFavouriteMovies();
+        fetchData();
     },[dispatch]);
-
-    // useEffect(() => {
-    //     setTimeout(()=>{console.log("HELLO")}, 2000);
-    //     const fetchData = async () => {
-    //         try {
-    //           await fetchProfile();
-    //           await findFollowingUser();
-    //           await findFavouriteMovies();
-    //         } catch (error) {
-    //           console.error(error);
-    //           navigate("/zinema/login");
-    //         }
-    //     };
-
-    //     const fetchProfile = async () => {
-    //       try {
-    //         const { payload } = await dispatch(profileThunk());
-    //         setProfile(payload);
-    //         console.log("Profile picture = ", profile.profilePicture);
-    //       } catch (error) {
-    //         console.error(error);
-    //         navigate("/zinema/login");
-    //       }
-    //     };
-
-    //     const findFollowingUser = async () => {
-    //         try {
-    //           if (profile.followingList === null) {
-    //             return;
-    //           }
-          
-    //           const followingArray = await Promise.all(profile.followingList.map(async (element) => {
-    //             const userID = element.user_id;
-    //             const { payload } = await dispatch(findUserByIDThunk(userID));
-    //             return payload;
-    //           }));
-          
-    //           setFollowing(followingArray);
-    //           console.log("following =", following);
-    //         } catch (error) {
-    //           console.error(error);
-    //           navigate("/zinema/login");
-    //         }
-    //       };
-
-    //     const findFavouriteMovies = async () => {
-    //         try {
-    //           if (profile.watchList === null) {
-    //             console.log("NULL watchlist");
-    //             return;
-    //           }
-          
-    //           const favArray = await Promise.all(profile.watchList.map(async (element) => {
-    //             console.log("element.movie_id =", element.movie_id);
-    //             const movieID = element.movie_id;
-    //             console.log("MOVIE ID =", movieID);
-    //             const movie = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${API_KEY}`);
-    //             console.log("Movie =", movie.data);
-    //             return movie.data;
-    //           }));
-          
-    //           setFavMovies(favArray);
-    //         } catch (error) {
-    //           console.error(error);
-    //           navigate("/zinema/login");
-    //         }
-    //     };
-    //     fetchData();  
-    // },[]);
 
 
 
@@ -201,7 +158,7 @@ function Homepage(){
                 <div className="col-10">
                     <input onClick={handleSearchMovies} className="form-control mb-2 bg" type="text" placeholder="Search Movies or TV Shows" />
                     <div className="row">
-                        <Favorites fMovies={favMovies}/>
+                        {favMovies && <Favorites fMovies={favMovies}/>}
                     </div>
                     <div className="row">
                         <MovieRow title="Horror" url={url_horror} />
@@ -212,7 +169,7 @@ function Homepage(){
                 </div>
                 <div className="col-2">
                     <div className="row search__profiles">
-                        <input onChange={(e)=>setQuery(e.target.value)} /*onKeyDown={(e) => handleKeyPress(e)}*/ className="form-control" type="text" placeholder="Search Profiles"/>
+                        <input onChange={(e)=>setQuery(e.target.value)} onKeyDown={(e) => handleKeyPress(e)} className="form-control" type="text" placeholder="Search Profiles"/>
                     </div>
                     {results.length > 0 ? (
                         <div>
@@ -232,9 +189,9 @@ function Homepage(){
                         </div>
                         ) : 
                         (<div>
-                            <h1>Following</h1>
+                            {/* <h1>Following</h1> */}
                             <div className="homepage__profiles">
-                                {following.map((userprofile) => (
+                                {/* {following.map((userprofile) => (
                                     <Link to={`/userprofile/${userprofile._id}`}><img
                                     key={userprofile._id}
                                     className="row__profile rounded-circle"
@@ -243,7 +200,8 @@ function Homepage(){
                                     />
                                     <h4 className="profile__name">{userprofile.firstName}</h4>
                                     </Link>
-                                ))}
+                                ))} */}
+                                <ProfileRows title={"Following"} profileData={following} />
                             </div>
                         </div>
                         )                    
