@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { createCommentThunk, findCommentsThunk, updateCommentThunk } from '../services/movie-thunks';
+import { updateFavoritesThunk } from '../services/list-thunks';
 
 const MovieContent = () => {
   const { movieId } = useParams();
@@ -15,6 +16,7 @@ const MovieContent = () => {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   const [profile, setProfile] = useState(currentUser);
+  const [isFavorite, setIsFavorite] = useState(true);
   const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
 
   // Fetch movie details
@@ -52,6 +54,16 @@ const MovieContent = () => {
     setNewComment("");
   }
 
+  // adding to user's favorites list
+  const handleSubmitFavorites = async (e) => {
+    e.preventDefault();
+    // movie_id is the thing we are using for the list. username is to track the specific username 
+    // in the database. update is used to add or delete the favorite in the state
+    const data = { movie_id: movieId, username: profile.username, update: isFavorite }
+    await dispatch(updateFavoritesThunk(data))
+    // await dispatch(profileThunk());
+    setIsFavorite(!isFavorite);
+  }
   return (
     <div className="container">
       {movie ? (
@@ -111,6 +123,9 @@ const MovieContent = () => {
           Submit Comment
         </button>
       </form>
+      <button onClick={handleSubmitFavorites}>
+        {isFavorite ? 'Add to Favorites' : 'Remove from Favorites'}
+      </button>
     </div>
   );
 };

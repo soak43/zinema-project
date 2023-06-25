@@ -27,41 +27,42 @@ const store = configureStore({
   reducer: {
     user: authReducer,
     movie: movieReducer,
-    profile: profileReducer
+    profile: profileReducer,
+    list: listReducer
   }
 })
 
 function Zinema() {
   return (
     <Provider store={store}>
-        <div className='container'>
-            <div className='row'>
-                <div className="col-2 mt-5">
-                    <NavigationSidebar />
-                </div>
-                <div className="col-10">
-                    <Routes>
-                        <Route path="/" element={<HelloPage />} />
-                        <Route path="/movie-content/:movieId" element={<MovieContent />} />
-                        <Route path="/search-results/*" element={<SearchResults />} />
-                        <Route path="/profile/userprofile/:profileId" element={<UserProfile />} />
-                        <Route path="/profile/*" element={<Profile />} />
-                        <Route path="/home" element={<Homepage />} />
-                        <Route path="/userprofile/:profileId" element={<UserProfile />} />
-                        <Route path="/register" element={<RegisterScreen />} />
-                        <Route path="/login" element={<LoginScreen />} />
-                        <Route path="/settings" element={<Settings />} />
-                        <Route path="/settings-main" element={<SettingsMain />} />
-                        <Route path="/image-selection" element={<ImageSelectionPage />} />
-                        <Route path="/billing" element={<Billing />} />
-                        <Route path="/security" element={<Security />} />
-                        <Route path="/view-card"    element={<ViewCard />} />
-                        <Route path="/add-card" element={<AddCard />} />
-                        <Route path="/pay-bill"  element={<PayBill />} /> 
-                    </Routes>
-                </div>
-            </div>
+      <div className='container'>
+        <div className='row'>
+          <div className="col-2 mt-5">
+            <NavigationSidebar />
+          </div>
+          <div className="col-10">
+            <Routes>
+              <Route path="/" element={<HelloPage />} />
+              <Route path="/movie-content/:movieId" element={<MovieContent />} />
+              <Route path="/search-results/*" element={<SearchResults />} />
+              <Route path="/profile/userprofile/:profileId" element={<UserProfile />} />
+              <Route path="/profile/*" element={<Profile />} />
+              <Route path="/home" element={<Homepage />} />
+              <Route path="/userprofile/:profileId" element={<UserProfile />} />
+              <Route path="/register" element={<RegisterScreen />} />
+              <Route path="/login" element={<LoginScreen />} />
+              <Route path="/settings" element={<Settings />} />
+              <Route path="/settings-main" element={<SettingsMain />} />
+              <Route path="/image-selection" element={<ImageSelectionPage />} />
+              <Route path="/billing" element={<Billing />} />
+              <Route path="/security" element={<Security />} />
+              <Route path="/view-card" element={<ViewCard />} />
+              <Route path="/add-card" element={<AddCard />} />
+              <Route path="/pay-bill" element={<PayBill />} />
+            </Routes>
+          </div>
         </div>
+      </div>
     </Provider>
   );
 }
