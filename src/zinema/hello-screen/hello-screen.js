@@ -5,7 +5,7 @@ const HelloScreen = () => {
         <div className="row justify-content-center">
 
             {/* Left card */}
-            <div className="col-4 m-4 border rounded-3">
+            <div className="col-lg-4 row-md m-4 flex-grow-1 border rounded-3">
 
                 <div className="row-2 align-items-center m-0 p-4 border-bottom">
                     <h1 className="fw-bold">Standard</h1>
@@ -26,7 +26,7 @@ const HelloScreen = () => {
                     <p className="fs-1 fw-bold m-0">7.99/mo</p>
 
                     <button type="button" class="btn btn-warning fw-bold rounded-pill m-3">
-                        <Link className="text-dark text-decoration-none " to={`/register`}>
+                        <Link className="text-dark text-decoration-none " to={`./register`}>
                         Sign up</Link>
                     </button>
                 </div>
@@ -35,7 +35,7 @@ const HelloScreen = () => {
 
             {/* Right card */}
 
-            <div className="col-4 m-4 border rounded-3">
+            <div className="col-lg-4 row-md m-4 border flex-grow-1 rounded-3">
 
                 <div className="row-2 align-items-center m-0 p-4 border-bottom">
                     <h1 className="fw-bold">Premium</h1>
@@ -59,7 +59,7 @@ const HelloScreen = () => {
                     <p className="fs-1 fw-bold m-0">16.99/mo</p>
 
                     <button type="button" class="btn btn-warning fw-bold rounded-pill m-3">
-                        <Link className="text-dark text-decoration-none" to={`/register`}>
+                        <Link className="text-dark text-decoration-none" to={`./register`}>
                         Sign up</Link>
                     </button>
                 </div>
@@ -71,7 +71,7 @@ const HelloScreen = () => {
 
 
                 <button type="submit" class=" w-25 row btn btn-warning fw-bold rounded-pill m-3 mb-0">
-                    <Link className="text-dark text-decoration-none" to={`/login`}>
+                    <Link className="text-dark text-decoration-none" to={`./login`}>
                         Login
                     </Link>
                 </button>

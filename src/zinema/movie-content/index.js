@@ -123,7 +123,7 @@ const MovieContent = () => {
           Submit Comment
         </button>
       </form>
-      <button onClick={handleSubmitFavorites}>
+      <button className="btn btn-warning" onClick={handleSubmitFavorites}>
         {isFavorite ? 'Add to Favorites' : 'Remove from Favorites'}
       </button>
     </div>
