@@ -113,11 +113,10 @@ function AddCard() {
                 </div>
               </form>
               <Link
-                to="/zinema/settings"
+                to="/zinema/profile"
                 className="btn btn-primary"
                 type="button"
-                onClick={save}
-              >
+                onClick={save}>
                 Add card
               </Link>
             </div>
