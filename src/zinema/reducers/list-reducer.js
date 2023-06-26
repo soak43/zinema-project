@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import { findFavoritesThunk, updateFavoritesThunk } from "../services/list-thunks";
 
 const listSlice = createSlice({
@@ -7,7 +7,10 @@ const listSlice = createSlice({
   reducers: {},
   extraReducers: {
     [updateFavoritesThunk.fulfilled]: (state, payload) => {
+      console.log("Previous state  = ", current(state));
+      console.log("payloaad = ", payload);
       state.currentMovie = { ...state.currentMovie, ...payload };
+      console.log("Previous state  = ", current(state));
       state.loading = false
     },
     [findFavoritesThunk.fulfilled]: (state, payload) => {
