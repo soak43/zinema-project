@@ -214,7 +214,7 @@ function Homepage(){
                             <h1>Search Results</h1>
                                 <div className="homepage__profiles">
                                     {results.map((userprofile) => (
-                                        <Link to={`/userprofile/${userprofile._id}`}>
+                                        <Link to={`/zinema/userprofile/${userprofile._id}`}>
                                             <img 
                                             key={userprofile._id}
                                             className="row__profile rounded-circle"

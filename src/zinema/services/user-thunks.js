@@ -38,8 +38,15 @@ export const findUserByUsernameThunk = createAsyncThunk(
 );
 
 export const updateAnyUserThunk = createAsyncThunk(
-    "user/updateCurrentUser" , async (user, updates) => {
-        const updatedUser = await userService.updateAnyUser(user, updates);
+    "user/updateCurrentUser" , async (information) => {
+        const updatedUser = await userService.updateAnyUser(information);
+        return updatedUser;
+    }
+);
+
+export const updateListThunk = createAsyncThunk(
+    "user/updateCurrentUser" , async (updates) => {
+        const updatedUser = await userService.updateList(updates);
         return updatedUser;
     }
 );

@@ -47,10 +47,16 @@ export const findUserByUsername = async ({ username }) => {
     return user;
 };
 
-export const updateAnyUser = async ({user, updates}) => {
-    const response = await axios.put(`${USERS_URL}/update/anyuser`, {user, updates});
+export const updateAnyUser = async ({profileId, updatedFollowerList}) => {
+    const response = await axios.put(`${USERS_URL}/update/anyuser`, {profileId, updatedFollowerList});
     const updatedUser = response.data;
     return updatedUser; 
 };
+
+export const updateList = async (updates) => {
+    const response = await axios.put(`${USERS_URL}/updatelist`, updates);
+    const updatedUser = response.data;
+    return updatedUser; 
+}
 
 // app.get('/api/users/:uid', findUserById);
