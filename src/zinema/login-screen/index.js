@@ -13,7 +13,7 @@ const LoginScreen = () => {
 
     const handleLogin = async () => {
         try {
-            await dispatch(loginThunk({ username, password }));
+            await dispatch(loginThunk({ username, password })).unwrap();
             navigate("/zinema/home");
         } catch (e) {
             alert(e);

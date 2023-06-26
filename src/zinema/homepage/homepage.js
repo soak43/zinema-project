@@ -80,7 +80,7 @@ function Homepage(){
                     return;
                 }
                 const followingArray = [];
-                profile.followingList.map(async(element) => {
+                profile.followingList?.map(async(element) => {
                     const userID = element.user_id; 
                     const {payload} = await dispatch(findUserByIDThunk(userID));
                     followingArray.push(payload);
@@ -100,7 +100,7 @@ function Homepage(){
                     return;
                 }
                 const favArray = [];
-                profile.watchList.map(async (element) => {
+                profile.watchList?.map(async (element) => {
                     console.log("element.movie_id = ", element.movie_id);
                     const movieID = element.movie_id; 
                     console.log("MOVIE ID = ", movieID);
@@ -218,7 +218,7 @@ function Homepage(){
                         <div>
                             <h1>Search Results</h1>
                                 <div className="homepage__profiles">
-                                    {results.map((userprofile) => (
+                                    {results?.map((userprofile) => (
                                         <Link to={`/userprofile/${userprofile._id}`}>
                                             <img 
                                             key={userprofile._id}
@@ -234,7 +234,7 @@ function Homepage(){
                         (<div>
                             <h1>Following</h1>
                             <div className="homepage__profiles">
-                                {following.map((userprofile) => (
+                                {following?.map((userprofile) => (
                                     <Link to={`/userprofile/${userprofile._id}`}><img
                                     key={userprofile._id}
                                     className="row__profile rounded-circle"

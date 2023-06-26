@@ -17,7 +17,7 @@ function Billing() {
         </Link>
       </nav>
       <div style={{ color: 'black' }} className="row">
-        <h1>Billing Page</h1>
+        
         <div className="col-md-4">
           <div className="card h-100 mb-4 mb-xl-0">
             <Nav />

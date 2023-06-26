@@ -35,8 +35,8 @@ function Security() {
           </Link>
         </nav>
         <div style={{ color: "black" }}>
-          <h1>Security Page</h1>
-
+          {/* <h1>Security Page</h1> */}
+          <br/>
           <div className="row">
             <div className="col-4">
               <label>Change Username</label>
