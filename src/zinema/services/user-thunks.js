@@ -21,20 +21,14 @@ export const findUserByIDThunk = createAsyncThunk(
     }
 );
 
-export const findUserByFirstNameThunk = createAsyncThunk(
-    "user/firstname", async (firstName) => {
-      const user = await userService.findUserByFirstName(firstName);
+export const searchProfileThunk = createAsyncThunk(
+    "user/searchprofile", async (query) => {
+      const user = await userService.searchProfileService({query});
+      console.log("query = ",query);
       return user;
     }
 );
   
-  
-export const findUserByLastNameThunk = createAsyncThunk(
-    "user/firstname", async (lastName) => {
-        const user = await userService.findUserByLastName(lastName);
-        return user;
-    }
-);
 
 export const findUserByUsernameThunk = createAsyncThunk(
     "user/username", async (username) => {
@@ -44,8 +38,15 @@ export const findUserByUsernameThunk = createAsyncThunk(
 );
 
 export const updateAnyUserThunk = createAsyncThunk(
-    "user/updateCurrentUser" , async (user, updates) => {
-        const updatedUser = await userService.updateAnyUser(user, updates);
+    "user/updateCurrentUser" , async (information) => {
+        const updatedUser = await userService.updateAnyUser(information);
+        return updatedUser;
+    }
+);
+
+export const updateListThunk = createAsyncThunk(
+    "user/updateCurrentUser" , async (updates) => {
+        const updatedUser = await userService.updateList(updates);
         return updatedUser;
     }
 );

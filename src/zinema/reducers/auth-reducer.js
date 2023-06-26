@@ -19,19 +19,17 @@ const authSlice = createSlice({
     state.currentUser = null;
   },
   [updateUserThunk.fulfilled]: (state, { payload }) => {
-    console.log("update user", current(state));
-    console.log("update user", payload);
-    state.currentUser = payload ;
-    console.log("update user", state.currentUser)
+    console.log("Payload = ", payload);
+    state.currentUser = payload;
   },
-
     [registerThunk.fulfilled]: (state, { payload }) => {
       state.currentUser = payload;
     },   
    [loginThunk.fulfilled]: (state, { payload }) => {
-    console.log("login user", current(state));
-    console.log("login user", payload);
+    console.log("Previous state = ", state.currentUser);
+    console.log("Payload = ", payload);
      state.currentUser = payload;
+     console.log("Current state = ", state.currentUser);
    },
  },
 });

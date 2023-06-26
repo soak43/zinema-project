@@ -45,7 +45,7 @@ function Zinema() {
               <Route path="/" element={<HelloPage />} />
               <Route path="/movie-content/:movieId" element={<MovieContent />} />
               <Route path="/search-results/*" element={<SearchResults />} />
-              <Route path="/profile/userprofile/:profileId" element={<UserProfile />} />
+              {/* <Route path="/profile/userprofile/:profileId" element={<UserProfile />} /> */}
               <Route path="/profile/*" element={<Profile />} />
               <Route path="/home" element={<Homepage />} />
               <Route path="/userprofile/:profileId" element={<UserProfile />} />

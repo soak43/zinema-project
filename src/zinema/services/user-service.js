@@ -21,17 +21,24 @@ export const findUserById = async ({ uid }) => {
     return user;
 };
 
-export const findUserByFirstName = async ({ firstName }) => {
-    const response = await axios.get(`${USERS_URL}/firstname/${firstName}`);
-    const user = response.data;
-    return user;
-};
+// export const findUserByFirstName = async ({ firstName }) => {
+//     const response = await axios.get(`${USERS_URL}/firstname/${firstName}`);
+//     const user = response.data;
+//     return user;
+// };
 
-export const findUserByLastName = async ({ lastName }) => {
-    const response = await axios.get(`${USERS_URL}/lastname/${lastName}`);
-    const user = response.data;
-    return user;
-};
+// export const findUserByLastName = async ({ lastName }) => {
+//     const response = await axios.get(`${USERS_URL}/lastname/${lastName}`);
+//     const user = response.data;
+//     return user;
+// };
+
+export const searchProfileService = async ({query}) => {
+    const response = await axios.get(`${USERS_URL}/searchprofile/${query}`);
+    const profilesFound = response.data;
+    console.log("profiles found = ", profilesFound);
+    return profilesFound;
+}
 
 
 export const findUserByUsername = async ({ username }) => {
@@ -40,10 +47,16 @@ export const findUserByUsername = async ({ username }) => {
     return user;
 };
 
-export const updateAnyUser = async ({user, updates}) => {
-    const response = await axios.get(`${USERS_URL}/updates`, {user, updates});
+export const updateAnyUser = async ({profileId, updatedFollowerList}) => {
+    const response = await axios.put(`${USERS_URL}/update/anyuser`, {profileId, updatedFollowerList});
     const updatedUser = response.data;
     return updatedUser; 
 };
+
+export const updateList = async (updates) => {
+    const response = await axios.put(`${USERS_URL}/updatelist`, updates);
+    const updatedUser = response.data;
+    return updatedUser; 
+}
 
 // app.get('/api/users/:uid', findUserById);
