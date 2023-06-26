@@ -22,13 +22,15 @@ import Profile from "./profile/profile";
 import HelloPage from "./hello-screen";
 import profileReducer from "./reducers/profile-reducer";
 import ImageSelectionPage from "./settings/image-selection"
+import followReducer from "./reducers/follow-reducer";
 
 const store = configureStore({
   reducer: {
     user: authReducer,
     movie: movieReducer,
     profile: profileReducer,
-    list: listReducer
+    list: listReducer,
+    follow: followReducer
   }
 })
 

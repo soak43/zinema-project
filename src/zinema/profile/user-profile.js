@@ -14,10 +14,12 @@ import Favorites from "../Rows/favorite-movie-row";
 import { updateUserThunk } from "../services/auth-thunks";
 import { updateAnyUserThunk } from "../services/user-thunks";
 import {updateListThunk} from "../services/user-thunks";
+import {updateFollowThunk} from "../services/follow-thunks";
 
 function UserProfile(){
 
     const {profileId} = useParams();
+    // const { currentUpdate, new_loading } = useSelector(state => state.follow)
     const [follows, setFollows] = useState(false);
     const {currentUser} = useSelector((state) => state.user);
     const [profile, setProfile] = useState({});
@@ -166,10 +168,61 @@ function UserProfile(){
     const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
     const url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=35`;
 
+
+    const handleUpdateFollow = async (e) => {
+      e.preventDefault();
+      // movie_id is the thing we are using for the list. username is to track the specific username 
+      // in the database. update is used to add or delete the favorite in the state
+
+      //if follows == true, then update should be to delete 
+      //if follows == false, then update should be to insert 
+
+      //update currentUser
+      //update following list of current user - add id of the profile user.
+      const currentUserdata = { user_id: profileId, username: currentUser.username, update: follows };
+      console.log("CurrenuserUpdate = ", currentUserdata);
+      await dispatch(updateFollowThunk(currentUserdata));
+
+      //update userProfile
+      //update followers list of profile user - add id of currentuser.
+      const profileUserData = { user_id : currentUser._id, username : profile.username, update : follows };
+      console.log("Profile user data = ", profileUserData);
+      await dispatch(updateFollowThunk(profileUserData));
+      // await dispatch(profileThunk());
+      setFollows(!follows);
+    }
+
     if(loadingfollowers || loadingfollowing || loadingmovies){
       return(
         <div>
           Loading...
+          <h1>Profile</h1>
+            <div className = "row">
+                {/* <div className="col-2">
+                    <NavigationSidebar />
+                </div> */}
+                <div className="col-10">
+                    <div className="row">
+                        <div className="col-3">
+                            <img width={200} src={`/images/${profile.profilePicture}`} className="rounded-circle img-fluid"></img>
+                        </div>
+                        <div className="col-7 pt-5">
+                                <h1> Profile </h1>
+                                <h2 className = "text-left">{profile.firstName} {profile.lastName}</h2>
+                                {!follows && (
+                                   <button className="btn btn-primary" /*onClick={() => { setFollows(true); handleFollow(true);}}*/ 
+                                   onClick={handleUpdateFollow}>
+                                    FOLLOW</button>
+                                )}
+                                 {follows && (
+                                   <button className="btn btn-secondary" /*onClick={() => { setFollows(false); handleFollow(false);}}*/
+                                    onClick={handleUpdateFollow}>
+                                    FOLLOWING</button>
+                                )}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
       );
     }else{
@@ -190,10 +243,14 @@ function UserProfile(){
                                 <h1> Profile </h1>
                                 <h2 className = "text-left">{profile.firstName} {profile.lastName}</h2>
                                 {!follows && (
-                                   <button className="btn btn-primary" onClick={() => { setFollows(true); handleFollow(true);}}>FOLLOW</button>
+                                   <button className="btn btn-primary" /*onClick={() => { setFollows(true); handleFollow(true);}}*/ 
+                                   onClick={handleUpdateFollow}>
+                                    FOLLOW</button>
                                 )}
                                  {follows && (
-                                   <button className="btn btn-secondary" onClick={() => { setFollows(false); handleFollow(false);}}>FOLLOWING</button>
+                                   <button className="btn btn-secondary" /*onClick={() => { setFollows(false); handleFollow(false);}}*/
+                                    onClick={handleUpdateFollow}>
+                                    FOLLOWING</button>
                                 )}
                         </div>
                     </div>

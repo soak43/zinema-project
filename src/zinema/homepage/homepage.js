@@ -181,7 +181,64 @@ function Homepage(){
     }else if(loadingfollowing || loadingmovies){
         return(
           <div>
-            Loading...
+            {/* Loading... */}
+            <div className="homepage_navigation">
+            <h1 className="text-center">ZINEMA</h1>
+            <div className="row ">
+                {/* <div className="col-2">
+                    <NavigationSidebar />
+                </div> */}
+                <div className="col-10">
+                    <input onClick={handleSearchMovies} className="form-control mb-2 bg" type="text" placeholder="Search Movies or TV Shows" />
+                    <div className="row">
+                        <MovieRow title="Horror" url={url_horror} />
+                    </div>
+                    <div className="row">
+                        <MovieRow title="Romantic" url={url_romantic}/>
+                    </div>
+                </div>
+                <div className="col-2">
+                    <div className="row search__profiles">
+                        <input onChange={(e)=>setQuery(e.target.value)} onKeyDown={(e) => handleKeyPress(e)} className="form-control" type="text" placeholder="Search Profiles"/>
+                    </div>
+                    {results.length > 0 ? (
+                        <div>
+                            <h1>Search Results</h1>
+                                <div className="homepage__profiles">
+                                    {results.map((userprofile) => (
+                                        <Link to={`/zinema/userprofile/${userprofile._id}`}>
+                                            <img 
+                                            key={userprofile._id}
+                                            className="row__profile rounded-circle"
+                                            src={`../images/${userprofile.profilePicture}`}
+                                            alt={userprofile.firstName} />
+                                            <h4 className="profile__name">{userprofile.firstName}</h4>
+                                        </Link>
+                                    ))}
+                                </div>
+                        </div>
+                        ) : 
+                        (<div>
+                            {/* <h1>Following</h1> */}
+                            <div className="homepage__profiles">
+                                {/* {following.map((userprofile) => (
+                                    <Link to={`/userprofile/${userprofile._id}`}><img
+                                    key={userprofile._id}
+                                    className="row__profile rounded-circle"
+                                    src={`../images/${userprofile.profilePicture}`}
+                                    alt={userprofile.firstName}
+                                    />
+                                    <h4 className="profile__name">{userprofile.firstName}</h4>
+                                    </Link>
+                                ))} */}
+                                {/* <ProfileRows title={"Following"} profileData={following} /> */}
+                            </div>
+                        </div>
+                        )                    
+                    }
+                </div>
+            </div>
+        </div>
           </div>
         );
     } else {

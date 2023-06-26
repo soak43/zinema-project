@@ -39,8 +39,9 @@ function Profile(){
       try {
         // console.log("State.user = ", state.user);
           if(profile.followingList === null){
-            setFollowing(followingArray);
-              return;
+            setLoadingfollowing(false);
+            // setFollowing(followingArray);
+            return;
           }
           const followingArray = [];
           profile.followingList.map(async(element) => {
@@ -142,8 +143,33 @@ function Profile(){
     if(loadingfollowers || loadingfollowing || loadingmovies){
       return(
         <div>
-          Loading...
+        <h1>Profile</h1>
+        <div className = "row">
+            {/* <div className="col-2">
+                <NavigationSidebar />
+            </div> */}
+            <div className="col-10">
+                <div className="row">
+                    <div className="col-3">
+                        <img width={200} src={`../images/${profile.profilePicture}`} className="rounded-circle img-fluid"></img>
+                    </div>
+                    <div className="col-7 pt-5">
+                            <h1> Profile </h1>
+                            <h2 className = "text-left">{profile.firstName} {profile.lastName}</h2>
+                    </div>
+                </div>
+            </div>
         </div>
+        <div className="row mt-4">
+            <div className="col-10">
+                <PrivateDetails user = {profile} />
+            </div>
+        </div>
+        {/* <div>
+          Loading...
+        </div> */}
+        </div>
+
       );
     }else{
 

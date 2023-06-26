@@ -21,12 +21,19 @@ const RegisterScreen = () => {
 
     const handleRegister = async () => {
         try {
-          dispatch(registerThunk({ firstName, lastName, email, phoneNumber, username, password, userType }));
+        // const type = userTypeMap[userType]
+          await dispatch(registerThunk({ firstName, lastName, email, phoneNumber, username, password,  userType}));
           navigate("/zinema/profile");
         } catch (e) {
           alert(e);
         }
        };
+
+    // const userTypeMap = {
+    //     BASIC: "BASIC",
+    //     PREMIUM: "PREMIUM",
+    //     ADMIN: "ADMIN",
+    // };
 
     return(
         <div className="row justify-content-center">
