@@ -95,7 +95,7 @@ function Homepage(){
             console.log("following = ", following);
         } catch (error) {
             console.error(error);
-            navigate("/zinema/login");
+            // navigate("/zinema/login");
         }
     };
 
@@ -119,7 +119,7 @@ function Homepage(){
             setFavMovies(favArray);
         } catch(error) {
             console.error(error);
-            navigate("/zinema/login");
+            // navigate("/zinema/login");
         }
     };
    

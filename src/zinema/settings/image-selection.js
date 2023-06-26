@@ -5,12 +5,12 @@ import { updateUserThunk, profileThunk } from "../services/auth-thunks";
 
 function ImageSelectionPage() {
   const images = [
-    "../images/default-profile-picture.png",
-    "../images/profilepic1.jpeg",
-    "../images/profilepic2.jpeg",
-    "../images/profilepic3.png",
-    "../images/profilepic4.jpeg",
-    "../images/wd.avif"
+    "default-profile-picture.png",
+    "profilepic1.jpeg",
+    "profilepic2.jpeg",
+    "profilepic3.png",
+    "profilepic4.jpeg",
+    // "../images/wd.avif"
   ];
 
   const { currentUser } = useSelector((state) => state.user);
@@ -39,7 +39,8 @@ function ImageSelectionPage() {
         <img
           key={index}
           className={`wd-profile-image ${selectedImage === image ? "selected" : ""}`}
-          src={image}
+          src={`/images/${image}`}
+          // src={image}
           alt={`Profile Image ${index}`}
           onClick={() => save(image)}
         />

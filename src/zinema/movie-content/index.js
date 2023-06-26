@@ -64,6 +64,53 @@ const MovieContent = () => {
     // await dispatch(profileThunk());
     setIsFavorite(!isFavorite);
   }
+
+if (currentUser === null) {
+
+    return (
+
+      <div className="container">
+
+      {movie ? (
+
+        <div className="row">
+
+          <div className="col-md-4">
+
+            <img
+
+              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+
+              alt={movie.title}
+
+              className="img-fluid"
+
+            />
+
+          </div>
+
+          <div className="col-md-8">
+
+            <h1 className="mb-4">{movie.title}</h1>
+
+            <p>{movie.overview}</p>
+
+          </div>
+
+        </div>
+
+      ) : (
+
+        <p>Loading movie details...</p>
+
+      )}
+
+      </div>
+
+    )
+
+  } else{
+
   return (
     <div className="container">
       {movie ? (
@@ -123,11 +170,12 @@ const MovieContent = () => {
           Submit Comment
         </button>
       </form>
-      <button onClick={handleSubmitFavorites}>
+      <button className="btn btn-warning" onClick={handleSubmitFavorites}>
         {isFavorite ? 'Add to Favorites' : 'Remove from Favorites'}
       </button>
     </div>
   );
+  }
 };
 
 export default MovieContent;

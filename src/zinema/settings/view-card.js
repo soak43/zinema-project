@@ -39,28 +39,32 @@ function ViewCard() {
   return (
     <>
       <div className="container-xl px-4 mt-4">
-          <nav className="nav nav-tabs mb-2">
-            <Link className="nav-link" to="/zinema/settings-main">Profile</Link>
-            <Link className="nav-link active ms-0" to="/zinema/billing">Billing</Link>
-            <Link className="nav-link" to="/zinema/security">Security</Link>
-          </nav>
-          <div className="row">
-            <div className="col-md-4">
-              <div className="card h-100 mb-4 mb-xl-0">
-                <div className="card-header">Card options</div>
-                <Nav />
-              </div>
-            </div>
-            <div className="col-md-8">
-              <div className="card h-100 mb-4">
-                <div className="card-header">Card Details</div>
-                <div className="card-body">
-                     {renderCardDetails()}
-                     </div>
-                 </div>
-                 </div>
-             </div>
+      <nav className="nav nav-tabs mb-2">
+        <Link className="nav-link" to="/zinema/settings-main">
+          Profile
+        </Link>
+        <Link className="nav-link active ms-0" to="/zinema/billing">
+          Billing
+        </Link>
+        <Link className="nav-link" to="/zinema/security">
+          Security
+        </Link>
+      </nav>
+      <div className="row">
+        <div className="col-lg-4 col-md-6">
+          <div className="card h-100 mb-4">
+            <div className="card-header">Card options</div>
+            <Nav />
+          </div>
+        </div>
+        <div className="col-lg-8 col-md-6">
+          <div className="card h-100 mb-4">
+            <div className="card-header">Card Details</div>
+            <div className="card-body">{renderCardDetails()}</div>
+          </div>
+        </div>
       </div>
+    </div>
     </>
   );
 }

@@ -22,35 +22,47 @@ function PayBill() {
         }, [dispatch]);
     return (
         <>
-        <>
-      <div className="container-xl px-4 mt-4">
-          <nav className="nav nav-tabs mb-2">
-            <Link className="nav-link" to="/zinema/settings-main">Profile</Link>
-            <Link className="nav-link active ms-0" to="/zinema/billing">Billing</Link>
-            <Link className="nav-link" to="/zinema/security">Security</Link>
-          </nav>
-          <div className="row">
-            <div className="col-md-4">
-              <div className="card h-100 mb-4 mb-xl-0">
-                <div className="card-header">Card options</div>
-                <Nav />
-              </div>
+        <div className="container-xl px-4 mt-4">
+      <nav className="nav nav-tabs mb-2">
+        <Link className="nav-link" to="/zinema/settings-main">
+          Profile
+        </Link>
+        <Link className="nav-link active ms-0" to="/zinema/billing">
+          Billing
+        </Link>
+        <Link className="nav-link" to="/zinema/security">
+          Security
+        </Link>
+      </nav>
+      <div className="row">
+        <div className="col-12 col-lg-4">
+          <div className="card h-100 mb-4 mb-xl-0">
+            <div className="card-header">Card options</div>
+            <Nav />
+          </div>
+        </div>
+        <div className="col-12 col-lg-8">
+          <div className="card h-100 mb-4">
+            <div className="card-header">Payment Details</div>
+            <div className="card-body">
+              {profile?.billingStatus === 'PENDING' ? (
+                <Link
+                  to="/zinema/settings-main"
+                  className="btn btn-primary"
+                  type="button"
+                  onClick={save}
+                >
+                  Pay Bill
+                </Link>
+              ) : (
+                <h4>The payment is already done</h4>
+              )}
             </div>
-            <div className="col-md-8">
-              <div className="card h-100 mb-4">
-                <div className="card-header">Payment Details</div>
-                <div className="card-body">
-                    {profile.billingStatus === 'PENDING' ? (
-                        <Link to="/zinema/settings-main" className="btn btn-primary" type="button" onClick={save}>Pay Bill</Link>
-                        ) : (<h4> The payment is already done </h4>)
-                    }
-                </div>
-              </div>
-            </div>
-           </div>
+          </div>
+        </div>
       </div>
-    </>
-        </>
+    </div>
+   </>
     );
 }
 

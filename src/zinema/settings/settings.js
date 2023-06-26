@@ -1,17 +1,21 @@
 import "./index1.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { profileThunk, updateUserThunk } from "../services/auth-thunks";
 import { useSelector, useDispatch } from "react-redux";
 import React, { useState, useEffect } from "react";
 
 function SettingsMain() {
-    const { currentUser } = useSelector((state) => state.user);
+  const { currentUser } = useSelector((state) => state.user);
     const [profile, setProfile] = useState(currentUser);
     const dispatch = useDispatch();
-    const save = () => { dispatch(updateUserThunk(profile)); };
+    const navigate = useNavigate();
+    const save = () => { dispatch(updateUserThunk(profile)); 
+    console.log("settings profile", profile);
+    navigate("/zinema/profile");};
     useEffect(() => {
         async function fetchData() {	
             const { payload } = await dispatch(profileThunk());	
+            console.log("profilethunk", payload);
             setProfile(payload);	
           }	
           fetchData();	
@@ -20,17 +24,17 @@ function SettingsMain() {
       <>
         <div className="container-xl px-4 mt-4">
           <nav className="nav nav-tabs mb-2">
-            <Link className="nav-link active ms-0" to="/zinema/settings-main">Profile</Link>
-            <Link className="nav-link" to="/zinema/billing">Billing</Link>
-            <Link className="nav-link" to="/zinema/security">Security</Link>
+            <a className="nav-link active ms-0" href="/zinema/settings-main">Profile</a>
+            <a className="nav-link" href="/zinema/billing">Billing</a>
+            <a className="nav-link" href="/zinema/security">Security</a>
           </nav>
           <div className="row">
             <div className="col-md-4">
               <div className="card h-100 mb-4 mb-xl-0">
                 <div className="card-header">Profile Picture</div>
                 <div className="card-body d-flex flex-column align-items-center justify-content-center">
-                  <img className="img-account-profile rounded-circle mb-2" src={profile.profilePicture} alt=""/>
-                  <Link className="btn btn-primary mt-2" to="/zinema/image-selection" type="button">Upload new image</Link>
+                  <img className="img-account-profile rounded-circle mb-2" src={`/images/${profile.profilePicture}`} alt=""/>
+                  <button className="btn btn-primary mt-2" onClick={() => navigate("/zinema/image-selection")}>Upload new image</button>
                 </div>
               </div>
             </div>
@@ -111,7 +115,7 @@ function SettingsMain() {
                         </div>
                     </div>
                   </form>
-                  <Link to="/zinema/settings" className="btn btn-primary" type="button" onClick={save}>Save changes</Link>
+                  <button className="btn btn-primary" type="button" onClick={save}>Save changes</button>
                 </div>
               </div>
             </div>
