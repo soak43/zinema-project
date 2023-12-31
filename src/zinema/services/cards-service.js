@@ -1,6 +1,6 @@
 import axios from 'axios';
-const BILLING_API = 'http://localhost:4000/api/billing';
-const BILLING_API_CARD = 'http://localhost:4000/api/billing/cards';
+const BILLING_API = "https://zinema-backend.onrender.com/api/billing" // 'http://localhost:4000/api/billing';
+const BILLING_API_CARD = "https://zinema-backend.onrender.com/api/billing/cards" //'http://localhost:4000/api/billing/cards';
 // const TUITS_API = 'https://tuiter-node-server-app-lej1.onrender.com/api/tuits';
 
 export const createCard = async (card) => {
